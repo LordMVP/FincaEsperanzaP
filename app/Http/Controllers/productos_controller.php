@@ -41,14 +41,16 @@ class productos_controller extends Controller
                 porcinos.categorias cate
         WHERE
                 prod.id_product = prla.id_product
-                and prod.idcategoria = cate.idcategoria");
+                and prod.idcategoria = cate.idcategoria
+                and prod.active = 1
+        ");
 
 
         $productos = productos::orderBy('id_product', 'ASC')->where('active', 1)->get();
 
-        
+        //dd($producto, $productos);
         //$productos = productos::orderBy('id_product', 'ASC')->paginate(5);
-        return view('pagina.productos.productos')->with('productos', $productos);
+        return view('pagina.productos.productos')->with('productos', $producto);
     }
 
     /**
