@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: FincaEsperanza
+        psr4_prefix: FincaEsperanza
+        src_path: app
