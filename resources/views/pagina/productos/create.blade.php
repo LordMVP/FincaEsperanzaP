@@ -36,7 +36,7 @@
                 {!! Form::number('price', null, ['class'   => 'form-control', 'placeholder' => 'Digite Precio']) !!}
 
                 {!! Form::label('Tamaño (kg)', 'Tamaño (kg)') !!}
-                {!! Form::number('tamano', null, ['class' => 'form-control', 'placeholder' => 'Descripcion de la variable']) !!}
+                {!! Form::number('tamano', null, ['class' => 'form-control', 'placeholder' => 'Tamaño promedio']) !!}
 
                 {!! Form::label('Estado', 'Estado') !!}
                 {!! Form::select('active', ['1' => 'Activo', '0' => 'Inactivo'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione Estado', 'required']) !!}

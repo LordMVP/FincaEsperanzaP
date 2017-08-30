@@ -3,8 +3,8 @@
 @section('titulo', 'Estadistica')
 
 @section('js1')
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 @endsection
 
 @section('pagina', 'Estadistica')
@@ -50,12 +50,6 @@
 
 @section('js2')
 
-<script src="{{ asset('plugin/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('plugin/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('plugin/bower_components/raphael/raphael.min.js') }}"></script>
-<script src="{{ asset('plugin/bower_components/morris.js/morris.min.js') }}"></script>
-<script src="{{ asset('plugin/bower_components/fastclick/lib/fastclick.js') }}"></script>
-<script src="{{ asset('plugin/bower_components/morris.js/morris.min.js') }}"></script>
 <script src="{{ asset('plugin/chosen/chosen.jquery.js') }}"></script>
 
 
@@ -101,23 +95,23 @@
     }
 
     $.ajax({
-          type: "GET",
-          url: "estadistica_datos/"+id1+"/"+id2+"/"+id3,
-          async:false,
-          success: function(data) { 
+                type: "GET",
+                url: "estadistica_datos/"+id1+"/"+id2+"/"+id3,
+      async:false,
+                success: function(data) { 
           //datos.push(eval(data));
-                datos = eval(data);
-          }
-      });
+          datos = eval(data);
+                  }
+            });
 
     $.ajax({
-          type: "GET",
-          url: "estadistica_variables",
-          async:false,
-          success: function(data) {
-                variables = eval(data);
-          }
-      });
+                type: "GET",
+                url: "estadistica_variables",
+      async:false,
+                success: function(data) {
+                      variables = eval(data);
+                }
+          });
 
 
     for(var i = 0; i < variables.length; i++){
@@ -128,24 +122,24 @@
     console.table(datos);
     Highcharts.chart('container', {
 
-        title: {
-            text: 'Modelo Optimización'
-        },
+      title: {
+        text: 'Modelo Optimización'
+      },
 
-        xAxis: {
-            categories: labels
-        },
+      xAxis: {
+        categories: labels
+      },
 
-        yAxis: {
-            type: 'Linear',
-            minorTickInterval: 1
-        },
+      yAxis: {
+        type: 'Linear',
+        minorTickInterval: 1
+      },
 
-        tooltip: {
-            headerFormat: '<b>{series.name}</b><br />',
+      tooltip: {
+        headerFormat: '<b>{series.name}</b><br />',
             //pointFormat: 'x = {point.x}, y = {point.y}'
             pointFormat: '{point.category} = {point.y}'
-        },
+          },
 
         series: datos/*[{
             data: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
@@ -154,8 +148,8 @@
         },{
             data: [10, 20, 14, 18, 16, 32, 64, 128, 256, 512],
             pointStart: 0
-        }]*/
-    });
+          }]*/
+        });
 
   }
 </script>

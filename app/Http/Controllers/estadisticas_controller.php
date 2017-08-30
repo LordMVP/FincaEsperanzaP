@@ -114,7 +114,7 @@ class estadisticas_controller extends Controller
                 for ($i=0; $i < count($variables); $i++) { 
                     array_push($arregloaux, $variables[$i]->valor);
                 }
-            
+                
                 $arreglo['data'] = $arregloaux;
                 $arreglo['pointStart'] = 0;
                 $arreglo['name'] = $variables[0]->nombre;
@@ -140,7 +140,7 @@ class estadisticas_controller extends Controller
                 for ($i=0; $i < count($variables); $i++) { 
                     array_push($arregloaux, $variables[$i]->valor);
                 }
-            
+                
                 $arreglo['data'] = $arregloaux;
                 $arreglo['pointStart'] = 0;
                 $arreglo['name'] = $variables[0]->nombre;
@@ -166,7 +166,7 @@ class estadisticas_controller extends Controller
                 for ($i=0; $i < count($variables); $i++) { 
                     array_push($arregloaux, $variables[$i]->valor);
                 }
-            
+                
                 $arreglo['data'] = $arregloaux;
                 $arreglo['pointStart'] = 0;
                 $arreglo['name'] = $variables[0]->nombre;

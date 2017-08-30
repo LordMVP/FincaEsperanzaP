@@ -51,11 +51,11 @@
 
 <div class="row" onload="">
   <div class="col-md-12">
-      <div class="col-sm-6 text-center">
-       <label class="label label-success">Line Chart</label>
-      <div id="line-chart"></div>
-    </div>
-  </div>
+    <div class="col-sm-6 text-center">
+     <label class="label label-success">Line Chart</label>
+     <div id="line-chart"></div>
+   </div>
+ </div>
 </div>
 @endsection
 

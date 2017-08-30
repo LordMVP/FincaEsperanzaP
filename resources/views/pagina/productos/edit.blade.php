@@ -22,35 +22,37 @@
     </div>
     @endif
 
-    {!! Form::open(['route' => ['variables.update', $variables], 'method' => 'PUT', 'files' => true]) !!}
-
+    {!! Form::open(['route' => ['productos.update', $productos], 'method' => 'PUT', 'files' => true]) !!}
     <div class="box-body">
-      <h3 class="page-header">Editar variables - {!! 'X' . $variables->variable . ' ' . $variables->nombre!!}</h3>
       <div class="form-group">
 
 
-        {!! Form::hidden('idvariables', $variables->idvariables, ['class' => 'form-control']) !!}
+        {!! Form::label('Productos', 'Productos') !!}
+        {!! Form::text('name', $productos->name, ['class'   => 'form-control', 'placeholder' => 'Nombre del producto', 'required']) !!}
 
-        {!! Form::label('Variable', 'Variable') !!}
-        {!! Form::number('variable', $variables->variable, ['class'   => 'form-control', 'placeholder' => 'Numero de la variable. Ej 1 => X1', 'required']) !!}
+        {!! Form::label('Categoria', 'Categoria') !!}
+        {!! Form::select('idcategoria', $categorias, $productos->idcategoria, [ 'id' => 'idcategoria', 'class' => 'form-control', 'placeholder' => 'Categoria', 'required']) !!}
 
-        {!! Form::label('nombre', 'Nombre') !!}
-        {!! Form::text('nombre', $variables->nombre, ['class'   => 'form-control', 'placeholder' => 'Nombre de la variable']) !!}
+        {!! Form::label('Precio', 'Precio') !!}
+        {!! Form::number('price', $productos->price, ['class'   => 'form-control', 'placeholder' => 'Digite Precio']) !!}
 
-        {!! Form::label('descripcion', 'Descripcion') !!}
-        {!! Form::text('descripcion', $variables->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripcion de la variable']) !!}
+        {!! Form::label('Tamaño (kg)', 'Tamaño (kg)') !!}
+        {!! Form::number('tamano', $productos->tamano, ['class' => 'form-control', 'placeholder' => 'Tamaño promedio']) !!}
+
+        {!! Form::label('Estado', 'Estado') !!}
+        {!! Form::select('active', ['1' => 'Activo', '0' => 'Inactivo'], $productos->active, ['class' => 'form-control', 'placeholder' => 'Seleccione Estado', 'required']) !!}
 
         <br>
         {!! Form::submit('Registrar', ['class' => 'btn btn-default'])!!}
         {!! Form::button('Volver', ['class' => 'btn btn-default', 'onclick' => 'history.back()', 'name' => 'Back2'])!!}
-      </div>
+      </br>
     </div>
-
-    {!! Form::close() !!}
-
-    <br>
-    <hr>
   </div>
+  {!! Form::close() !!}
+
+  <br>
+  <hr>
+</div>
 </div>   
 
 @endsection

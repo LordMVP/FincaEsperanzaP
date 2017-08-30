@@ -33,25 +33,25 @@ class productos_controller extends Controller
             prla.id_product = prod.id_product
             and prod.id_product = stoc.id_product
             and prod.idcategoria = cate.idcategoria");*/
-        $producto = DB::select("SELECT 
+            $producto = DB::select("SELECT 
                 * 
-        FROM 
+                FROM 
                 porcinos.ps_product prod,
                 porcinos.ps_product_lang prla,
                 porcinos.categorias cate
-        WHERE
+                WHERE
                 prod.id_product = prla.id_product
                 and prod.idcategoria = cate.idcategoria
                 and prod.active = 1
-        ");
+                ");
 
 
-        $productos = productos::orderBy('id_product', 'ASC')->where('active', 1)->get();
+            $productos = productos::orderBy('id_product', 'ASC')->where('active', 1)->get();
 
         //dd($producto, $productos);
         //$productos = productos::orderBy('id_product', 'ASC')->paginate(5);
-        return view('pagina.productos.productos')->with('productos', $producto);
-    }
+            return view('pagina.productos.productos')->with('productos', $producto);
+        }
 
     /**
      * Show the form for creating a new resource.
@@ -94,7 +94,7 @@ class productos_controller extends Controller
         //$puc = new Puc($request->all());
         //$puc->save();
         Flash::success("Se ha Creado El producto " . $request->name);
-        return redirect()->route('producto.index');
+        return redirect()->route('productos.index');
     }
 
     /**
@@ -115,8 +115,31 @@ class productos_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+
+        $categorias = categorias::orderBy('idcategoria', 'ASC')->where('estado', 1)->get();
+        $array_categorias = array();
+
+        foreach ($categorias as $cat) {
+            $array_categorias[$cat->idcategoria] = $cat->nombre;
+        }
+
+        $producto = DB::select("SELECT 
+                * 
+            FROM 
+            porcinos.ps_product prod,
+            porcinos.ps_product_lang prla,
+            porcinos.categorias cate
+            WHERE
+            prod.id_product = prla.id_product
+            and prod.idcategoria = cate.idcategoria
+            and prod.id_product = " . $id . "
+            ");
+
+        $productos = productos::find($id);
+        $productos->name = $producto[0]->name;
+        //dd($producto[0]->name, $productos);
+        return view('pagina.productos.edit')->with('productos', $productos)->with('categorias', $array_categorias);
     }
 
     /**
@@ -128,7 +151,13 @@ class productos_controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::update('UPDATE ps_product SET idcategoria=?, price=?, tamano=?, active=?, date_upd=? WHERE id_product = ?', [$request->idcategoria, $request->price, $request->tamano, $request->active, '', $id]);
+
+        DB::update('UPDATE ps_product_lang SET name=? WHERE id_product = ?', [$request->name, $id]);
+
+        Flash::warning("Se ha Editado El producto " . $request->name);
+
+        return redirect()->route('productos.index');
     }
 
     /**
@@ -139,6 +168,19 @@ class productos_controller extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            DB::delete("DELETE FROM ps_product_lang WHERE id_product = " . $id);
+            DB::delete("DELETE FROM ps_product WHERE id_product = " . $id);
+            //$this->buildXMLHeader;
+            Flash::error("Se ha Eliminado el producto");
+
+            return redirect()->route('productos.index');
+        }
+        catch (\Exception $e) {
+            Flash::error("No se ha eliminado el producto error -> " . $e->getMessage());
+            return redirect()->route('productos.index');
+            //return $e->getMessage();
+        }
     }
 }
