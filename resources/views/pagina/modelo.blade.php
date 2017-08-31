@@ -527,7 +527,7 @@
         }
         for(j=1; j<=novariables; j++)
         {
-         s= s+ "<td><input type='text' name='txtx" +  j + "' size='5' onkeypress='return solonumeros(event)' onblur='jmodelo()' maxlength='6' id='txtx" + j + "'  ></td> ";     
+         s= s+ "<td><input type='number' name='txtx" +  j + "' size='5' onkeypress='' onblur='jmodelo()' maxlength='6' id='txtx" + j + "'  style='width:70px;'></td> ";     
       }  
       s= s+"<td></td>";
       s= s+"<td></td>";        
@@ -539,10 +539,10 @@
         s= s+"<td class='jcell'> Restricci&oacute;n "+i+" </td>";
         for (j=1; j<=novariables; j++)
         {
-         s= s+"<td><input type='text' name='txtr"+i+"x"+j+"' id='txtr"+i+"x"+j+"'  size='5' onkeypress='return solonumeros(event)' onblur='jmodelo()' maxlength='6'  ></td>";
+         s= s+"<td><input type='number' name='txtr"+i+"x"+j+"' id='txtr"+i+"x"+j+"'  size='5' onkeypress='' onblur='jmodelo()' maxlength='6'  style='width:70px;'></td>";
       }
       s= s + "<td> <select size='1' name='cmbr"+i+"' id='cmbr"+i+"'><option selected value='<=''><=</option><option value='>='> >= </option><option value='='> = </option></select></td>";
-      s= s + "<td> <input type='text' name='txtrhs"+i+"' size='5' onkeypress='return solonumeros(event)' onblur='jmodelo()' maxlength='6' id='txtrhs"+i+"'  ></td>";          
+      s= s + "<td> <input type='number' name='txtrhs"+i+"' size='5' onkeypress='' onblur='jmodelo()' maxlength='6' id='txtrhs"+i+"' style='width:70px;'></td>";          
       s= s+"</tr>";
    }       
 
@@ -560,9 +560,6 @@ function jmodelo()
    var i; var j;
    var aux;
    var s;
-
-
-
 
    novariables = document.getElementById("idnovariables").value;
    norestricciones = document.getElementById("idnorestricciones").value; 

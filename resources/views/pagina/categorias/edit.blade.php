@@ -22,23 +22,20 @@
     </div>
     @endif
 
-    {!! Form::open(['route' => ['variables.update', $variables], 'method' => 'PUT', 'files' => true]) !!}
+    {!! Form::open(['route' => ['categorias.update', $categorias], 'method' => 'PUT', 'files' => true]) !!}
 
     <div class="box-body">
-      <h3 class="page-header">Editar variables - {!! 'X' . $variables->variable . ' ' . $variables->nombre!!}</h3>
+      <h3 class="page-header">Editar categorias - {!! $categorias->nombre !!}</h3>
       <div class="form-group">
 
 
-        {!! Form::hidden('idvariables', $variables->idvariables, ['class' => 'form-control']) !!}
-
-        {!! Form::label('Variable', 'Variable') !!}
-        {!! Form::number('variable', $variables->variable, ['class'   => 'form-control', 'placeholder' => 'Numero de la variable. Ej 1 => X1', 'required']) !!}
+        {!! Form::hidden('idcategoria', $categorias->idcategoria, ['class' => 'form-control']) !!}
 
         {!! Form::label('nombre', 'Nombre') !!}
-        {!! Form::text('nombre', $variables->nombre, ['class'   => 'form-control', 'placeholder' => 'Nombre de la variable']) !!}
+        {!! Form::text('nombre', $categorias->nombre, ['class'   => 'form-control', 'placeholder' => 'Nombre de la categoria']) !!}
 
-        {!! Form::label('descripcion', 'Descripcion') !!}
-        {!! Form::text('descripcion', $variables->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripcion de la variable']) !!}
+        {!! Form::label('Estado', 'Estado') !!}
+        {!! Form::select('estado', ['1' => 'Activo', '0' => 'Inactivo'], $categorias->estado, ['class' => 'form-control', 'placeholder' => 'Seleccione Estado', 'required']) !!}
 
         <br>
         {!! Form::submit('Registrar', ['class' => 'btn btn-default'])!!}

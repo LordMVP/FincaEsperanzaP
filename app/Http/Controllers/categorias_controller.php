@@ -2,10 +2,17 @@
 
 namespace FincaEsperanza\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use FincaEsperanza\Http\Requests;
 use FincaEsperanza\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use FincaEsperanza\categorias;
+use FincaEsperanza\variables;
+use Auth;
+
+use Illuminate\Support\Facades\Redirect;
+use Laracasts\Flash\Flash;
+use Storage;
 
 class categorias_controller extends Controller
 {
@@ -16,7 +23,8 @@ class categorias_controller extends Controller
      */
     public function index()
     {
-        //
+        $categorias = categorias::orderBy('idcategoria', 'ASC')->paginate(5);
+        return view('pagina.categorias.categorias')->with('categorias', $categorias);
     }
 
     /**
@@ -26,7 +34,7 @@ class categorias_controller extends Controller
      */
     public function create()
     {
-        //
+        return view('pagina.categorias.create');
     }
 
     /**
@@ -37,7 +45,24 @@ class categorias_controller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $categorias = new categorias($request->all());
+
+        $v = \Validator::make($request->all(), [
+
+            'nombre' => 'unique:categorias'
+            ]);
+        //dd($variable);
+        if ($v->fails())
+        {   
+            //dd($v);
+            return redirect()->back()->withInput()->withErrors($v->errors());
+        }
+
+        //dd($variable);
+        $categorias->save();
+        Flash::success("Se ha Creado La Categoria " . $request->nombre);
+        return redirect()->route('categorias.index');
     }
 
     /**
@@ -59,7 +84,8 @@ class categorias_controller extends Controller
      */
     public function edit($id)
     {
-        //
+        $categorias = categorias::find($id);
+        return view('pagina.categorias.edit')->with('categorias', $categorias);
     }
 
     /**
@@ -71,7 +97,16 @@ class categorias_controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request);
+
+        $categorias = categorias::find($id);
+
+        $categorias->nombre = $request->nombre;
+        $categorias->estado = $request->estado;
+
+        $categorias->save();
+        Flash::warning("Se ha Editado la categoria " . $request->nombre);
+        return redirect()->route('categorias.index');
     }
 
     /**
@@ -82,6 +117,10 @@ class categorias_controller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categorias = categorias::find($id);
+        $categorias->delete();
+
+        Flash::error("Se ha Eliminado la categoria " . $categorias->nombre);
+        return redirect()->route('categorias.index');
     }
 }

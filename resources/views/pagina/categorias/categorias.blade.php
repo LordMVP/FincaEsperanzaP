@@ -6,18 +6,18 @@
 
 @endsection
 
-@section('pagina', 'Variables')
+@section('pagina', 'categorias')
 
 @section('contenido')
 <div class="row">
     <div class="col-lg-12">
         <h3 class="page-header">
-            Listado Variables
+            Listado categorias
         </h3>
     </div>
 </div>
-<a class="btn btn-info" href=" {{ route('variables.create') }} ">
-    Nueva Variable
+<a class="btn btn-info" href=" {{ route('categorias.create') }} ">
+    Nueva categoria
 </a>
 <hr>
 <div class="row">
@@ -30,13 +30,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Variable
-                                </th>
-                                <th>
                                     Nombre
                                 </th>
                                 <th>
-                                    Descripción
+                                    Estado
                                 </th>
                                 <th>
                                     Accion
@@ -44,21 +41,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($variables as $variable)
+                            @foreach ($categorias as $categoria)
                             <tr class="odd gradeX">
                                 <td>
-                                    X<sub>{{ $variable->variable }}</sub>
+                                    {{ $categoria->nombre }}
                                 </td>
                                 <td>
-                                    {{ $variable->nombre }}
+                                @if($categoria->estado == '1')
+                                    ACTIVO
+                                @else
+                                    INACTIVO
+                                @endif
                                 </td>
                                 <td>
-                                    {{ $variable->descripcion }}
-                                </td>
-                                <td>
-                                    <a class="glyphicon glyphicon-pencil btn btn-info" href=" {{ route('variables.edit', $variable->idvariables) }} ">
+                                    <a class="glyphicon glyphicon-pencil btn btn-info" href=" {{ route('categorias.edit', $categoria->idcategoria) }} ">
                                     </a>
-                                    <a class="glyphicon glyphicon-trash btn btn-danger" href=" {{ route('variables.destroy', $variable->idvariables) }} " onclick="return confirm('¿Seguro Desea Eliminarlo?')">
+                                    <a class="glyphicon glyphicon-trash btn btn-danger" href=" {{ route('categorias.destroy', $categoria->idcategoria) }} " onclick="return confirm('¿Seguro Desea Eliminarlo?')">
                                     </a>
                                 </td>
                             </tr>
@@ -68,7 +66,7 @@
                     {!! Form::button('Volver', ['class' => 'btn btn-success', 'onclick' => 'history.back()', 'name' => 'Back2'])!!}
                 </div>
                 <div class="text-left">
-                    {!! $variables->render() !!}
+                    {!! $categorias->render() !!}
                 </div>
                 <!-- /.table-responsive -->
             </div>

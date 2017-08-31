@@ -69,7 +69,7 @@
     $("#id_modelo").chosen({
       search_contains: true,
       no_results_text: 'No Se Encontraron Resultados',
-      max_selected_options: 3
+      max_selected_options: 5
     });
 
 

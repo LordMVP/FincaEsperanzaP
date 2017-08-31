@@ -78,7 +78,7 @@ class estadisticas_controller extends Controller
         $id = 0;
         $sql = "";
 
-        $sql .= "select * from ( ";
+        /*$sql .= "select * from ( ";
         $sql .= "select more.*, mode.nombre from modelo mode inner join modelo_resultado more on mode.id_modelo = more.id_modelo ";
         $sql .= "where more.variable like '%x%' or more.variable like '%z%' order by more.variable  ";
         $sql .= ") datos ";
@@ -95,7 +95,7 @@ class estadisticas_controller extends Controller
         $arreglo['pointStart'] = 0;
         $arreglo['name'] = $variables[0]->nombre;
 
-        array_push($datos, $arreglo);
+        array_push($datos, $arreglo);*/
 
         if($id1 != 0){
             $arreglo = $limpiar;

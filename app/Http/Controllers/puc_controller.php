@@ -27,7 +27,7 @@ class puc_controller extends Controller
     public function index(Request $request)
     {   
         //dd($request->busqueda);
-        $puc = Puc::orderBy('nro_cuenta', 'ASC')->paginate(5);
+        $puc = Puc::orderBy('nro_cuenta', 'ASC')->paginate(15);
 
         //dd($request->busqueda);
         return view('pagina.puc.puc')->with('puc', $puc);
@@ -93,8 +93,8 @@ class puc_controller extends Controller
     public function update(Request $request, $id)
     {
 
-        DB::update('UPDATE puc SET nombre_cuenta=?, clase=?, estado=? WHERE nro_cuenta = ?', [$request->nombre_cuenta, $request->clase, $request->nro_cuenta, $request->estado]);
-        Flash::warning("Se ha Editado La Cuenta " . $request->nombre_cuenta . ' ' . $request->clase);
+        DB::update('UPDATE puc SET nombre_cuenta=?, clase=?, estado=? WHERE nro_cuenta = ?', [$request->nombre_cuenta, $request->clase, $request->estado, $request->nro_cuenta]);
+        Flash::warning("Se ha Editado La Cuenta " . $request->nombre_cuenta . ' - ' . $request->clase);
 
         return redirect()->route('puc.index');
     }

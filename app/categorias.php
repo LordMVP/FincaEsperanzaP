@@ -10,5 +10,5 @@ class categorias extends Model
 	public $timestamps = false;
 	protected $primaryKey = 'idcategoria';
 
-	protected $fillable = ['idcategoria', 'nombre', 'descripcion'];
+	protected $fillable = ['idcategoria', 'nombre', 'descripcion', 'estado'];
 }
