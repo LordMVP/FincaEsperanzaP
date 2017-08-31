@@ -264,3 +264,33 @@ Route::group(['middleware' => 'auth'], function()
 		'uses'	=>	'estadisticas_controller@variables',
 		'as'	=>	'estadistica.variables'
 		])->middleware('auth');
+
+	/* ----------- ventas ----------- */
+
+	Route::group(['middleware' => 'auth'], function()
+	{
+		Route::resource('ventas', 'ventas_controller');
+	});
+
+	Route::get('ventas/{id}/destroy', [
+		'uses'	=>	'ventas_controller@destroy',
+		'as'	=>	'ventas.destroy'
+		])->middleware('auth');
+
+
+	/* ----------- compras ----------- */
+
+	Route::group(['middleware' => 'auth'], function()
+	{
+		Route::resource('compras', 'compras_controller');
+	});
+
+	Route::get('compras/{id}/destroy', [
+		'uses'	=>	'compras_controller@destroy',
+		'as'	=>	'compras.destroy'
+		])->middleware('auth');
+
+		Route::post('transar', [
+		'uses'	=>	'compras_controller@transar',
+		'as'	=>	'compras.transar'
+		])->middleware('auth');

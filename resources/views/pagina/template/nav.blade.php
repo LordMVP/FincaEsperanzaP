@@ -22,6 +22,8 @@
           <li class="header">Contabilidad</li>
           <li><a href="{{ route('puc.index') }}"><i class="glyphicon glyphicon-list-alt"></i> <span>PUC</span></a></li>
           <li><a href="{{ route('transaccion.index') }}"><i class="glyphicon glyphicon-transfer"></i> <span>Transacciones</span></a></li>
+          <li><a href="{{ route('compras.index') }}"><i class="glyphicon glyphicon-save"></i> <span>Compras</span></a></li>
+          <li><a href="{{ route('ventas.index') }}"><i class="glyphicon glyphicon-open"></i> <span>Ventas</span></a></li>
           <li><a href="{{ route('inventario.index') }}"><i class="glyphicon glyphicon-list"></i> <span>Inventario</span></a></li>
           <li><a href="{{ route('nomina.index') }}"><i class="glyphicon glyphicon-usd"></i> <span>Nomina</span></a></li>
           <li class="header">Parametrizacion</li>

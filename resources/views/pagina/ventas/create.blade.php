@@ -49,10 +49,6 @@
       
     }
 
-    $('#tdebito').val(parseFloat($('#c1_debito').val())+parseFloat($('#c2_debito').val())+parseFloat($('#c3_debito').val())+parseFloat($('#c4_debito').val())+parseFloat($('#c5_debito').val())+parseFloat($('#c6_debito').val()));
-
-    $('#tcredito').val(parseFloat($('#c1_credito').val())+parseFloat($('#c2_credito').val())+parseFloat($('#c3_credito').val())+parseFloat($('#c4_credito').val())+parseFloat($('#c5_credito').val())+parseFloat($('#c6_credito').val()));
-    
     console.log(cont);
   }
 
@@ -192,66 +188,50 @@
                 <th>Accion</th>
               </tr>
               <tr id="tr1" >
-                <td><input style="border:none" type="text" name="c1_cuenta" id="c1_cuenta" value="0"></td>
-                <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion" value="0"></td>
-                <td><input style="border:none" type="text" name="c1_debito" id="c1_debito" value="0"></td>
-                <td><input style="border:none" type="text" name="c1_credito" id="c1_credito" value="0"></td>
+                <td><input style="border:none" type="text" name="c1_cuenta" id="c1_cuenta"></td>
+                <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion"></td>
+                <td><input style="border:none" type="text" name="c1_debito" id="c1_debito"></td>
+                <td><input style="border:none" type="text" name="c1_credito" id="c1_credito"></td>
                 <td><a onclick="limpiar('1')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr2">
-                <td><input style="border:none" type="text" name="c2_cuenta" id="c2_cuenta" value="0"></td>
-                <td><input style="border:none" type="text" name="c2_descripcion" id="c2_descripcion" value="0"></td>
-                <td><input style="border:none" type="text" name="c2_debito" id="c2_debito" value="0"></td>
-                <td><input style="border:none" type="text" name="c2_credito" id="c2_credito" value="0"></td>
+                <td><input style="border:none" type="text" name="c2_cuenta" id="c2_cuenta"></td>
+                <td><input style="border:none" type="text" name="c2_descripcion" id="c2_descripcion"></td>
+                <td><input style="border:none" type="text" name="c2_debito" id="c2_debito"></td>
+                <td><input style="border:none" type="text" name="c2_credito" id="c2_credito"></td>
                 <td><a onclick="limpiar('2')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr3">
-                <td><input style="border:none" type="text" name="c3_cuenta" id="c3_cuenta" value="0"></td>
-                <td><input style="border:none" type="text" name="c3_descripcion" id="c3_descripcion" value="0"></td>
-                <td><input style="border:none" type="text" name="c3_debito" id="c3_debito" value="0"></td>
-                <td><input style="border:none" type="text" name="c3_credito" id="c3_credito" value="0"></td>
+                <td><input style="border:none" type="text" name="c3_cuenta" id="c3_cuenta"></td>
+                <td><input style="border:none" type="text" name="c3_descripcion" id="c3_descripcion"></td>
+                <td><input style="border:none" type="text" name="c3_debito" id="c3_debito"></td>
+                <td><input style="border:none" type="text" name="c3_credito" id="c3_credito"></td>
                 <td><a onclick="limpiar('3')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr4">
-                <td><input style="border:none" type="text" name="c4_cuenta" id="c4_cuenta" value="0"></td>
-                <td><input style="border:none" type="text" name="c4_descripcion" id="c4_descripcion" value="0"></td>
-                <td><input style="border:none" type="text" name="c4_debito" id="c4_debito" value="0"></td>
-                <td><input style="border:none" type="text" name="c4_credito" id="c4_credito" value="0"></td>
+                <td><input style="border:none" type="text" name="c4_cuenta" id="c4_cuenta"></td>
+                <td><input style="border:none" type="text" name="c4_descripcion" id="c4_descripcion"></td>
+                <td><input style="border:none" type="text" name="c4_debito" id="c4_debito"></td>
+                <td><input style="border:none" type="text" name="c4_credito" id="c4_credito"></td>
                 <td><a onclick="limpiar('4')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr5">
-                <td><input style="border:none" type="text" name="c5_cuenta" id="c5_cuenta" value="0"></td>
-                <td><input style="border:none" type="text" name="c5_descripcion" id="c5_descripcion" value="0"></td>
-                <td><input style="border:none" type="text" name="c5_debito" id="c5_debito" value="0"></td>
-                <td><input style="border:none" type="text" name="c5_credito" id="c5_credito" value="0"></td>
+                <td><input style="border:none" type="text" name="c5_cuenta" id="c5_cuenta"></td>
+                <td><input style="border:none" type="text" name="c5_descripcion" id="c5_descripcion"></td>
+                <td><input style="border:none" type="text" name="c5_debito" id="c5_debito"></td>
+                <td><input style="border:none" type="text" name="c5_credito" id="c5_credito"></td>
                 <td><a onclick="limpiar('5')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr6">
-                <td><input style="border:none" type="text" name="c6_cuenta" id="c6_cuenta" value="0"></td>
-                <td><input style="border:none" type="text" name="c6_descripcion" id="c6_descripcion" value="0"></td>
-                <td><input style="border:none" type="text" name="c6_debito" id="c6_debito" value="0"></td>
-                <td><input style="border:none" type="text" name="c6_credito" id="c6_credito" value="0"></td>
+                <td><input style="border:none" type="text" name="c6_cuenta" id="c6_cuenta"></td>
+                <td><input style="border:none" type="text" name="c6_descripcion" id="c6_descripcion"></td>
+                <td><input style="border:none" type="text" name="c6_debito" id="c6_debito"></td>
+                <td><input style="border:none" type="text" name="c6_credito" id="c6_credito"></td>
                 <td><a onclick="limpiar('6')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
-            </tbody>
-            </table>
+            </tbody></table>
           </div>
-          <div class="col-lg-4">
-            <div class="input-group">
-
-              <!-- /btn-group -->
-              <input readonly="" type="text" class="form-control" id="tdebito" name="tdebito" value="0">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-danger" onclick="" title="Calcular">Debito</button>
-              </div>
-              <div class="clearfix"></div>
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-danger" onclick="" title="Calcular">Credito</button>
-              </div>
-              <!-- /btn-group -->
-              <input readonly="" type="text" class="form-control" id="tcredito" name="tcredito" value="0">
-            </div>
-          </div>
+          <!-- /.box-body -->
         </div>
         <!-- /.box -->
       </div>

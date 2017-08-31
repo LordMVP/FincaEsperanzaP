@@ -16,40 +16,34 @@ use FincaEsperanza\Http\Requests\user_request;
 use Auth;
 use DB;
 
-class transaccion_controller extends Controller
+class compras_controller extends Controller
 {
-
-   public function __construct()
-   {
-    $this->middleware('auth');
-
-}
-
-public function index(Request $request)
-{   
-        //dd($request->busqueda);
-    $transaccion = Transaccion::orderBy('fecha_operacion', 'ASC')->paginate(15);
-
-    $debito = Transaccion::where('naturaleza', 'Debito')->sum('saldo');
-
-    $credito = Transaccion::where('naturaleza', 'Credito')->sum('saldo');
-
-    //dd($credito);
-    return view('pagina.transaccion.transaccion')->with('transaccion', $transaccion)
-    ->with('debito', $debito)
-    ->with('credito', $credito);
-}
-
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function index()
+    {   
+
+        $arrayproductos = array();
+
+        $productos = DB::Select("SELECT 
+                        *
+                FROM 
+                        porcinos.ps_product prod,
+                        porcinos.ps_product_lang prla,
+                        porcinos.categorias cate
+                WHERE
+                        prod.id_product = prla.id_product
+                        and prod.idcategoria = cate.idcategoria");
+
+        for ($i=0; $i < count($productos); $i++) { 
+            $arrayproductos[$productos[$i]->id_product] = $productos[$i]->nombre . ' - ' . $productos[$i]->name;
+        }
 
         $puc = Puc::orderBy('nro_cuenta', 'ASC')->where('estado', 1)->get();
-        //dd($puc);
+        //dd($arrayproductos);
         //$pacientes = User::where('tipo', '!=', 'medico')->orderBy('id', 'ASC')->lists('nombre', 'id');
 
         $array_puc = array();
@@ -59,7 +53,17 @@ public function index(Request $request)
         }
 
         $puc = Puc::orderBy('nro_cuenta', 'ASC')->lists('nombre_cuenta', 'nro_cuenta');
-        return view('pagina.transaccion.create')->with('puc', $array_puc);
+        return view('pagina.compras.create')->with('puc', $array_puc)->with('productos', $arrayproductos);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -69,15 +73,10 @@ public function index(Request $request)
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        //dd($request->nro_cuenta);
-
-        DB::insert('insert into puc (nro_cuenta, nombre_cuenta, clase) values (?, ?, ?)', [$request->nro_cuenta, $request->nombre_cuenta, $request->clase]);
-        //$puc = new Puc($request->all());
-        //$puc->save();
-        Flash::success("Se ha Creado La Cuenta " . $request->nombre_cuenta . ' ' . $request->clase);
-        return redirect()->route('puc.index');
+    {
+        //
     }
+
 
     public function transar(Request $request)
     {   
@@ -177,7 +176,7 @@ public function index(Request $request)
         Flash::success("Se ha Realizado La transaccion correctamente ");
         return redirect()->route('transaccion.index');
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -197,8 +196,7 @@ public function index(Request $request)
      */
     public function edit($id)
     {
-        $puc = Puc::find($id);
-        return view('pagina.puc.edit')->with('puc', $puc);
+        //
     }
 
     /**
@@ -210,11 +208,7 @@ public function index(Request $request)
      */
     public function update(Request $request, $id)
     {
-
-        DB::update('UPDATE puc SET nombre_cuenta=?, clase=? WHERE nro_cuenta = ?', [$request->nombre_cuenta, $request->clase, $request->nro_cuenta]);
-        Flash::warning("Se ha Editado La Cuenta " . $request->nombre_cuenta . ' ' . $request->clase);
-
-        return redirect()->route('puc.index');
+        //
     }
 
     /**
@@ -225,10 +219,6 @@ public function index(Request $request)
      */
     public function destroy($id)
     {
-        $puc = Puc::find($id);
-        $puc->delete();
-
-        Flash::error("Se ha Eliminado La Cuenta " . $puc->nombre_cuenta . ' ' . $puc->clase);
-        return redirect()->route('puc.index');
+        //
     }
 }
