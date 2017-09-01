@@ -118,7 +118,7 @@
 
 @endsection
 
-@section('pagina', 'Transaccion')
+@section('pagina', 'Compras')
 
 @section('contenido')
 

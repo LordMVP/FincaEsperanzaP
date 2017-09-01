@@ -1,12 +1,12 @@
 @extends('pagina.template.principal')
 
-@section('titulo', 'Transacciones')
+@section('titulo', 'Compras')
 
 @section('js1')
 
 @endsection
 
-@section('pagina', 'Transacciones')
+@section('pagina', 'Compras')
 
 @section('contenido')
 

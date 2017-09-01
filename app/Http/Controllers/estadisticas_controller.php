@@ -57,14 +57,12 @@ class estadisticas_controller extends Controller
         $variables = DB::select('SELECT * FROM variables order by variable');
         //dd($variables[1]->nombre);
         $arreglo = array();
-        //$aux .= "{";
 
         for ($i=0; $i < count($variables); $i++) { 
             $arreglo[$i] = $variables[$i]->nombre;
             //$aux .= $variables[$i]->nombre . ',';
         }
 
-        //$aux .= "}";
         return json_encode($arreglo);
     }
 

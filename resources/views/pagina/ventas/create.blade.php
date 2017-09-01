@@ -1,6 +1,6 @@
 @extends('pagina.template.principal')
 
-@section('titulo', 'Transaccion')
+@section('titulo', 'Ventas')
 
 @section('js1')
 
@@ -19,30 +19,81 @@
     $('#tr5').hide();
     $('#tr6').hide();
 
+    $("#id_product").change(function() {
+        var datos;
+        var producto = document.getElementById('id_product').value;
+
+        $.ajax({
+          type: "GET",
+          url: "ventas_controller/"+producto,
+          async:false,
+          success: function(data) { 
+          datos = eval(data);
+          }
+        });
+       
+        $('#cantidad').attr('max', datos);
+        console.log(document.getElementById('id_product').value, datos);
+        $('#lbcantidad').text("Maximo " + datos + " productos");
+    });
+
+    $("#cantidad").keyup(function() {
+        
+        var datos;
+
+        $.ajax({
+          type: "GET",
+          url: "ventas_controller",
+          async:false,
+          success: function(data) { 
+          datos = eval(data);
+          }
+        });
+        
+        var producto = document.getElementById('id_product').value;
+        var cantidad = document.getElementById('cantidad').value;
+        $('#cantidad').attr('max', datos[producto]);
+
+        if (cantidad > 0 && cantidad <= datos[producto]) {
+            console.log(document.getElementById('id_product').value, datos);
+
+            $("#total").val(parseFloat($('#valor').val())*parseFloat($('#cantidad').val()));
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    $("#valor").keyup(function() {
+        $("#total").val(parseFloat($('#valor').val())*parseFloat($('#cantidad').val()));
+        //$("#total").val((parseFloat($('#cantidad').val()))*(parseFloat($('#valor').val())));
+    });
   });
 
 
   function agregar(){
 
-    var nro_cuenta = document.getElementById('nro_cuenta').value;
+    var id_product = document.getElementById('id_product').value;
     var descripcion = document.getElementById('descripcion').value;
-    var naturaleza = document.getElementById('naturaleza').value;
-    var saldo = document.getElementById('saldo').value;
+    var cantidad = document.getElementById('cantidad').value;
+    var valor = document.getElementById('valor').value;
+    var total = document.getElementById('total').value;
     //alert(nro_cuenta);
-    console.log(saldo);
+    console.log(total);
 
-    if(nro_cuenta == "" || descripcion == "" || naturaleza == "" || saldo == ""){
+    if(id_product == "" || descripcion == "" || cantidad == "" || valor == "" || total == ""){
       alert('Llene todos los campos');
     }else{
 
-      document.getElementById('nro_cuenta').value = "";
+      document.getElementById('id_product').value = "";
       document.getElementById('descripcion').value = "";
-      document.getElementById('naturaleza').value = "";
-      document.getElementById('saldo').value = "";
+      document.getElementById('cantidad').value = "";
+      document.getElementById('valor').value = "";
+      document.getElementById('total').value = "";
 
       if(cont < 7){
         cont++;
-        llenar(nro_cuenta, descripcion, naturaleza, saldo, cont);
+        llenar(id_product, descripcion, cantidad, valor, total, cont);
       }else{
         alert('No se pueden realizar mas transacciones');
       }
@@ -52,21 +103,15 @@
     console.log(cont);
   }
 
-  function llenar(nro_cuenta, descripcion, naturaleza, saldo, cont){
+  function llenar(id_product, descripcion, cantidad, valor, total, cont){
 
     if(cont < 7){
       $('#tr'+cont).show();
-      document.getElementById('c'+cont+'_cuenta').value = nro_cuenta;
-      document.getElementById('c'+cont+'_descripcion').value = descripcion;
-
-
-      if(naturaleza == "Debito"){
-        document.getElementById('c'+cont+'_debito').value = saldo;
-        document.getElementById('c'+cont+'_credito').value = 0;
-      }else{
-        document.getElementById('c'+cont+'_debito').value = 0;
-        document.getElementById('c'+cont+'_credito').value = saldo;
-      }
+          document.getElementById('c'+cont+'_producto').value = id_product;
+          document.getElementById('c'+cont+'_descripcion').value = descripcion;
+          document.getElementById('c'+cont+'_cantidad').value = cantidad;
+          document.getElementById('c'+cont+'_valor').value = valor;
+          document.getElementById('c'+cont+'_total').value = total;
     }else{
 
       alert('No se pueden realizar mas transacciones');
@@ -79,39 +124,34 @@
 
 
     console.log(num);
-    document.getElementById('c'+num+'_cuenta').value = "";
+    document.getElementById('c'+num+'_producto').value = "";
     document.getElementById('c'+num+'_descripcion').value = "";
-    document.getElementById('c'+num+'_debito').value = "";
-    document.getElementById('c'+num+'_credito').value = "";
+    document.getElementById('c'+num+'_cantidad').value = "";
+    document.getElementById('c'+num+'_valor').value = "";
+    document.getElementById('c'+num+'_total').value = "";
 
     if(cont == num || cont == 1){
       cont--;
     }else{
       num++;
       console.log(num);
-      var nro_cuenta = document.getElementById('c'+num+'_cuenta').value;
-      var descripcion = document.getElementById('c'+num+'_descripcion').value;
-      var naturaleza = "";
-      var debito = document.getElementById('c'+num+'_debito').value;
-      var credito = document.getElementById('c'+num+'_credito').value;
 
-      if(debito == 0){
-        var saldo = credito;
-        naturaleza = "Credito";
-      }else if(credito == 0){
-        var saldo = debito;
-        naturaleza = "Debito";
-      }else if(debito == 0 && credito == 0){
-        var saldo = 0;
-      }
+      var id_product = document.getElementById('c'+num+'_producto').value;
+      var descripcion = document.getElementById('c'+num+'_descripcion').value;
+      var cantidad = document.getElementById('c'+num+'_cantidad').value;
+      var valor = document.getElementById('c'+num+'_valor').value;
+      var total = document.getElementById('c'+num+'_total').value;
+
       num--;
       cont = num;
-      llenar(nro_cuenta, descripcion, naturaleza, saldo, num);
+      llenar(id_product, descripcion, cantidad, valor, total, num);
     }
     $('#tr'+num).hide();
   }
 
-
+  function validarcantidad(){
+    
+  }
 
 
 </script>
@@ -119,34 +159,39 @@
 
 @endsection
 
-@section('pagina', 'Transaccion')
+@section('pagina', 'Ventas')
 
 @section('contenido')
 
 <div class="row text-left" >
 
-  <div class="col-md-4">
+  <div class="col-md-3">
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-6">
 
     <div class="box box-danger">
       <div class="box-header">
-        <h3 class="box-title">Datos transaccion</h3>
+        <h3 class="box-title">Datos Ventas</h3>
       </div>
       <div class="box-body">
 
-        {!! Form::label('Cuenta', 'Cuenta') !!}
-        {!! Form::select('nro_cuenta', $puc, null, [ 'id' => 'nro_cuenta', 'class' => 'form-control', 'placeholder' => 'Numero Cuenta', 'required']) !!}
+        {!! Form::label('Productos', 'Productos') !!}
+        {!! Form::select('id_product', $productos, null, [ 'id' => 'id_product', 'class' => 'form-control', 'placeholder' => 'Productos', 'required', 'onchange' => '']) !!}
 
         {!! Form::label('Descripcion', 'Descripcion') !!}
-        {!! Form::text('descripcion', null, ['id' => 'descripcion', 'class' => 'form-control', 'placeholder' => 'Descripcion Movimiento', 'title' => 'El Nombre Solo Debe Tener Letras']) !!}
+        {!! Form::text('descripcion', null, ['id' => 'descripcion', 'class' => 'form-control', 'placeholder' => 'Descripcion de la compra', 'title' => 'Descripcion de la compra']) !!}
 
-        {!! Form::label('naturaleza', 'Naturaleza') !!}
-        {!! Form::select('naturaleza', ['Debito' => 'Debito', 'Credito' => 'Credito'], null, ['id' => 'naturaleza', 'class' => 'form-control', 'placeholder' => 'Seleccione naturaleza', 'required']) !!}
+        {!! Form::label('Cantidad', 'Cantidad') !!}
+        {!! Form::number('cantidad', 0, ['id' => 'cantidad', 'class' => 'form-control', 'placeholder' => 'Cantidad', 'title' => 'Cantidad de items', 'value' => '1', 'min'=>'1', 'max'=>'5']) !!}
+        <label name="lbcantidad" id="lbcantidad" style="display: block;text-align: right;font-size:10px; color:red;">Maximo 4 productos</label><br>
 
-        {!! Form::label('Saldo', 'Saldo') !!}
-        {!! Form::number('saldo', null, ['id' => 'saldo', 'class' => 'form-control', 'placeholder' => 'Saldo', 'title' => 'El Nombre Solo Debe Tener Letras']) !!}
+        {!! Form::label('Valor Unitario', 'Valor Unitario') !!}
+        {!! Form::number('valor', 0, ['id' => 'valor', 'class' => 'form-control', 'placeholder' => 'Valor', 'title' => 'Valor unitario', 'value' => '0']) !!}
+
+        {!! Form::label('Total', 'Total') !!}
+        {!! Form::number('total', 0, ['id' => 'total', 'class' => 'form-control', 'placeholder' => 'Total', 'title' => 'Valor total productos', 'readonly' => '']) !!}
+
         <br>
         <button type="submit" class="btn btn-danger" onclick="agregar()">Agregar</button>
         {!! Form::button('Volver', ['class' => 'btn btn-danger', 'onclick' => 'history.back()', 'name' => 'Back2'])!!}
@@ -161,13 +206,14 @@
 </div>
 <!-- /.row -->
 
+
 <div class="row">
 
   <div class="col-md-12">
 
     <div class="box box-info">
       <div class="box-header">
-        <h3 class="box-title">Cuentas</h3>
+        <h3 class="box-title">Productos</h3>
       </div>
 
       <div class="col-xs-12">
@@ -176,57 +222,64 @@
             <h3 class="box-title">Movimientos</h3>
 
           </div>
-          {!! Form::open(['route' => 'transaccion.transar', 'method' => 'POST', 'files' => true]) !!}
+          {!! Form::open(['route' => 'compras.transar', 'method' => 'POST', 'files' => true]) !!}
 
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
               <tbody><tr>
-                <th>Cuenta</th>
+                <th>Producto</th>
                 <th>Descripcion</th>
-                <th>Debito</th>
-                <th>Credito</th>
+                <th>Cantidad</th>
+                <th>Valor</th>
+                <th>Total</th>
                 <th>Accion</th>
               </tr>
               <tr id="tr1" >
-                <td><input style="border:none" type="text" name="c1_cuenta" id="c1_cuenta"></td>
+                <td><input style="border:none" type="text" name="c1_producto" id="c1_producto"></td>
                 <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion"></td>
-                <td><input style="border:none" type="text" name="c1_debito" id="c1_debito"></td>
-                <td><input style="border:none" type="text" name="c1_credito" id="c1_credito"></td>
+                <td><input style="border:none" type="text" name="c1_cantidad" id="c1_cantidad"></td>
+                <td><input style="border:none" type="text" name="c1_valor" id="c1_valor"></td>
+                <td><input style="border:none" type="text" name="c1_total" id="c1_total"></td>
                 <td><a onclick="limpiar('1')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr2">
-                <td><input style="border:none" type="text" name="c2_cuenta" id="c2_cuenta"></td>
+                <td><input style="border:none" type="text" name="c2_producto" id="c2_producto"></td>
                 <td><input style="border:none" type="text" name="c2_descripcion" id="c2_descripcion"></td>
-                <td><input style="border:none" type="text" name="c2_debito" id="c2_debito"></td>
-                <td><input style="border:none" type="text" name="c2_credito" id="c2_credito"></td>
+                <td><input style="border:none" type="text" name="c2_cantidad" id="c2_cantidad"></td>
+                <td><input style="border:none" type="text" name="c2_valor" id="c2_valor"></td>
+                <td><input style="border:none" type="text" name="c2_total" id="c2_total"></td>
                 <td><a onclick="limpiar('2')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr3">
-                <td><input style="border:none" type="text" name="c3_cuenta" id="c3_cuenta"></td>
+                <td><input style="border:none" type="text" name="c3_producto" id="c3_producto"></td>
                 <td><input style="border:none" type="text" name="c3_descripcion" id="c3_descripcion"></td>
-                <td><input style="border:none" type="text" name="c3_debito" id="c3_debito"></td>
-                <td><input style="border:none" type="text" name="c3_credito" id="c3_credito"></td>
+                <td><input style="border:none" type="text" name="c3_cantidad" id="c3_cantidad"></td>
+                <td><input style="border:none" type="text" name="c3_valor" id="c3_valor"></td>
+                <td><input style="border:none" type="text" name="c3_total" id="c3_total"></td>
                 <td><a onclick="limpiar('3')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr4">
-                <td><input style="border:none" type="text" name="c4_cuenta" id="c4_cuenta"></td>
+                <td><input style="border:none" type="text" name="c4_producto" id="c4_producto"></td>
                 <td><input style="border:none" type="text" name="c4_descripcion" id="c4_descripcion"></td>
-                <td><input style="border:none" type="text" name="c4_debito" id="c4_debito"></td>
-                <td><input style="border:none" type="text" name="c4_credito" id="c4_credito"></td>
+                <td><input style="border:none" type="text" name="c4_cantidad" id="c4_cantidad"></td>
+                <td><input style="border:none" type="text" name="c4_valor" id="c4_valor"></td>
+                <td><input style="border:none" type="text" name="c4_total" id="c4_total"></td>
                 <td><a onclick="limpiar('4')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr5">
-                <td><input style="border:none" type="text" name="c5_cuenta" id="c5_cuenta"></td>
+                <td><input style="border:none" type="text" name="c5_producto" id="c5_producto"></td>
                 <td><input style="border:none" type="text" name="c5_descripcion" id="c5_descripcion"></td>
-                <td><input style="border:none" type="text" name="c5_debito" id="c5_debito"></td>
-                <td><input style="border:none" type="text" name="c5_credito" id="c5_credito"></td>
+                <td><input style="border:none" type="text" name="c5_cantidad" id="c5_cantidad"></td>
+                <td><input style="border:none" type="text" name="c5_valor" id="c5_valor"></td>
+                <td><input style="border:none" type="text" name="c5_total" id="c5_total"></td>
                 <td><a onclick="limpiar('5')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr6">
-                <td><input style="border:none" type="text" name="c6_cuenta" id="c6_cuenta"></td>
+                <td><input style="border:none" type="text" name="c6_producto" id="c6_producto"></td>
                 <td><input style="border:none" type="text" name="c6_descripcion" id="c6_descripcion"></td>
-                <td><input style="border:none" type="text" name="c6_debito" id="c6_debito"></td>
-                <td><input style="border:none" type="text" name="c6_credito" id="c6_credito"></td>
+                <td><input style="border:none" type="text" name="c6_cantidad" id="c6_debito"></td>
+                <td><input style="border:none" type="text" name="c6_valor" id="c6_valor"></td>
+                <td><input style="border:none" type="text" name="c6_total" id="c6_total"></td>
                 <td><a onclick="limpiar('6')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
             </tbody></table>
@@ -262,7 +315,7 @@
 
 <script type="text/javascript">
 
-  $("#nro_cuenta").chosen({
+  $("#id_product").chosen({
     search_contains: true,
     no_results_text: 'No Se Encontraron Resultados'
   });

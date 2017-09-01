@@ -277,6 +277,11 @@ Route::group(['middleware' => 'auth'], function()
 		'as'	=>	'ventas.destroy'
 		])->middleware('auth');
 
+	Route::get('ventas_controller/{id}', [
+		'uses'	=>	'ventas_controller@ventascantidad',
+		'as'	=>	'ventas.cantidad'
+	])->middleware('auth');
+
 
 	/* ----------- compras ----------- */
 
