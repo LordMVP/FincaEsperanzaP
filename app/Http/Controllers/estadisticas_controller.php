@@ -112,7 +112,11 @@ class estadisticas_controller extends Controller
 
             if(!empty($variables)){
                 for ($i=0; $i < count($variables); $i++) { 
-                    array_push($arregloaux, $variables[$i]->valor);
+                    if($variables[$i]->variable == "Z"){
+                        array_push($arregloaux, ($variables[$i]->valor/1000));
+                    }else{
+                        array_push($arregloaux, $variables[$i]->valor);
+                    }
                 }
                 
                 $arreglo['data'] = $arregloaux;
@@ -137,8 +141,13 @@ class estadisticas_controller extends Controller
             $variables = DB::select($sql);
 
             if(!empty($variables)){
-                for ($i=0; $i < count($variables); $i++) { 
-                    array_push($arregloaux, $variables[$i]->valor);
+                for ($i=0; $i < count($variables); $i++) {
+                    if($variables[$i]->variable == "Z"){
+                        array_push($arregloaux, ($variables[$i]->valor/1000));
+                    }else{
+                        array_push($arregloaux, $variables[$i]->valor);
+                    }
+                    
                 }
                 
                 $arreglo['data'] = $arregloaux;
@@ -164,7 +173,11 @@ class estadisticas_controller extends Controller
 
             if(!empty($variables)){
                 for ($i=0; $i < count($variables); $i++) { 
-                    array_push($arregloaux, $variables[$i]->valor);
+                    if($variables[$i]->variable == "Z"){
+                        array_push($arregloaux, ($variables[$i]->valor/1000));
+                    }else{
+                        array_push($arregloaux, $variables[$i]->valor);
+                    }
                 }
                 
                 $arreglo['data'] = $arregloaux;

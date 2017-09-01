@@ -131,8 +131,19 @@
       },
 
       yAxis: {
+        minPadding: 0.2,
+        maxPadding: 0.2,
+        title: {
+            text: 'Valores'
+        },
+        plotLines: [{
+            value: 0,
+            width: 0.5,
+            color: '#808080'
+        }],
         type: 'Linear',
-        minorTickInterval: 1
+        minorTickInterval: 100,
+        zIndex : 1
       },
 
       tooltip: {
