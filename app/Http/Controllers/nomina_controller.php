@@ -181,7 +181,6 @@ class nomina_controller extends Controller
             return redirect()->route('nomina.index');
         }else if($request->estado == 'Pago'){
 
-
             if($nomina->sueldobasico != 0){
                 $cuentas_nomina = new cuentas_nomina();
                 $cuentas_nomina->num_cuenta = "510506";
@@ -465,7 +464,8 @@ class nomina_controller extends Controller
                 $cuentas_nomina->save();
 
             }
-
+             DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c1_cuenta, $request->c1_descripcion, $saldo, $naturaleza, '']);
+             
             $nomina->estado = "Pago";
             $nomina->save();
             Flash::success("Se ha Generado la nomina para el Empleado " . $usuario->nombre . ' ' . $usuario->apellido);
