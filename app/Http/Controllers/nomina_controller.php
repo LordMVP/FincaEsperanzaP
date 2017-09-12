@@ -159,7 +159,7 @@ class nomina_controller extends Controller
     public function cambioestado(Request $request)
     {
 
-
+        
         $nomina = nomina::find($request->id_nomina);
 
         $usuario = User::find($nomina->cedula);
@@ -167,12 +167,17 @@ class nomina_controller extends Controller
         //`id`, `num_cuenta`, `naturaleza`, `saldo`, `descripcion`, `fecha`        
 
         //$cuentas_nomina = new cuentas_nomina();
-
         
 
-        if($request->estado == 'No Pago' || $request->estado == 'Cancelado'){
-
+        if($request->estado == 'No Pago'){
+            $nomina->estado = $request->estado;
+            $nomina->save();
             Flash::success("Se ha cambiado el estado a No pago ");
+            return redirect()->route('nomina.index');
+        }else if($request->estado == 'Cancelado'){
+            $nomina->estado = $request->estado;
+            $nomina->save();
+            Flash::success("Se ha cambiado el estado a Cancelado ");
             return redirect()->route('nomina.index');
         }else if($request->estado == 'Pago'){
 

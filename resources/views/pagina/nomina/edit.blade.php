@@ -26,7 +26,7 @@
   var intcesantias = 0;
 
 
-  function calcular_dias(){
+   function calcular_dias(){
 
     var auxb = 0;
     sueldobasico = document.getElementById('sueldobasico').value;
@@ -37,8 +37,8 @@
 
     document.getElementById('sueldo').value = sueldo;
 
-    if(sueldobasico <= 1378910){
-      auxtransporte = (77700/30)*diastrabajados;
+    if(sueldobasico <= 1475434){
+      auxtransporte = (83140/30)*diastrabajados;
       document.getElementById('auxtransporte').value = auxtransporte;
     }else{
       document.getElementById('auxtransporte').value = 0;
@@ -117,12 +117,12 @@
     var embargos = document.getElementById('embargos').value;
 
     var cesantias = document.getElementById('cesantias').value;
-    var intecesantías = document.getElementById('intecesantías').value;
+    var intecesantias = document.getElementById('intecesantias').value;
     var primaservi = document.getElementById('primaservi').value;
     var vacaciones = document.getElementById('vacaciones').value;
 
     //total = (parseFloat(salud) + parseFloat(pension) + parseFloat(rete) + parseFloat(libranza) + parseFloat(fondos) + parseFloat(embargos));
-    total = (parseFloat(salud) + parseFloat(pension) + parseFloat(rete) + parseFloat(libranza) + parseFloat(fondos) + parseFloat(embargos) + parseFloat(cesantias) + parseFloat(intecesantías) + parseFloat(primaservi) + parseFloat(vacaciones));
+    total = (parseFloat(salud) + parseFloat(pension) + parseFloat(rete) + parseFloat(libranza) + parseFloat(fondos) + parseFloat(embargos) + parseFloat(cesantias) + parseFloat(intecesantias) + parseFloat(primaservi) + parseFloat(vacaciones));
 
     document.getElementById('tdeducido').value = total;
 
@@ -148,7 +148,7 @@
     total = (total*dias) / 360;
 
     document.getElementById('cesantias').value = total;
-    document.getElementById('intecesantías').value = ((total*dias*0.12)/360);
+    document.getElementById('intecesantias').value = ((total*dias*0.12)/360);
   }
 
   function calcular_primaservi(){
@@ -223,7 +223,6 @@
       //alert('nada');
       document.getElementById('retencion').value = 0;
     }
-
   }
 
 </script>

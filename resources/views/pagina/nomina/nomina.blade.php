@@ -46,18 +46,15 @@
                 <td>{{ $nomina->estado }}</td>
                 <td>
 
-                  @if ($nomina->estado == "Pago")
+                  @if ($nomina->estado == "Pago" || $nomina->estado == "Cancelado")
                   <a href="" data-toggle="modal" data-target="#modalcomision" onclick="$('#id_nomina').val({{ $nomina->id_nomina }})" class="glyphicon glyphicon-pushpin btn btn-success disabled"></a>
                   @else
                   <a href="" data-toggle="modal" data-target="#modalcomision" onclick="$('#id_nomina').val({{ $nomina->id_nomina }})" class="glyphicon glyphicon-pushpin btn btn-success"></a>
-                  @endif
-
-                  <a href=" {{ route('nomina.show', $nomina->id_nomina) }} "  class="glyphicon glyphicon-eye-open btn btn-warning"></a>
                   <a href=" {{ route('nomina.edit', $nomina->id_nomina) }} " class="glyphicon glyphicon-pencil btn btn-info"></a>
                   <a disable="" href=" {{ route('nomina.destroy', $nomina->id_nomina) }} " onclick="return confirm('¿Seguro Desea Eliminarlo?')" class="glyphicon glyphicon-trash btn btn-danger"></a>
-                  
-                  
-
+                  @endif
+                  <a href=" {{ route('nomina.show', $nomina->id_nomina) }} "  class="glyphicon glyphicon-eye-open btn btn-warning"></a>
+                               
                 </td>
               </tr>
               @endforeach

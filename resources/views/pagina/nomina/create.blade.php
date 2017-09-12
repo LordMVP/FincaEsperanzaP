@@ -38,8 +38,8 @@
 
     document.getElementById('sueldo').value = sueldo;
 
-    if(sueldobasico <= 1378910){
-      auxtransporte = (77700/30)*diastrabajados;
+    if(sueldobasico <= 1475434){
+      auxtransporte = (83140/30)*diastrabajados;
       document.getElementById('auxtransporte').value = auxtransporte;
     }else{
       document.getElementById('auxtransporte').value = 0;
