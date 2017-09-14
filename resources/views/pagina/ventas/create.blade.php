@@ -22,6 +22,57 @@
     $("#id_product").change(function() {
         var datos;
         var producto = document.getElementById('id_product').value;
+        var cantidad = 0;
+        $.ajax({
+          type: "GET",
+          url: "ventas_controller/"+producto,
+          async:false,
+          success: function(data) { 
+          datos = eval(data);
+          }
+        });
+       
+
+        if($('#c1_producto').val() == $("#id_product").val()){
+          cantidad += parseFloat($("#c1_cantidad").val());
+        }
+
+        if($('#c2_producto').val() == $("#id_product").val()){
+          cantidad += parseFloat($("#c2_cantidad").val());
+        }
+
+        if($('#c3_producto').val() == $("#id_product").val()){
+          cantidad += parseFloat($("#c3_cantidad").val());
+        }
+
+        if($('#c4_producto').val() == $("#id_product").val()){
+          cantidad += parseFloat($("#c4_cantidad").val());
+        }
+ 
+        if($('#c5_producto').val() == $("#id_product").val()){
+          cantidad += parseFloat($("#c5_cantidad").val());
+        }
+
+        if($('#c6_producto').val() == $("#id_product").val()){
+          cantidad += parseFloat($("#c6_cantidad").val());
+        }
+
+        $('#cantidad').attr('max', (datos-cantidad));
+        console.log(document.getElementById('id_product').value, datos);
+        $('#lbcantidad').text("Maximo " + (datos-cantidad) + " productos");
+
+        if((datos-cantidad) == 0){
+            $("#cantidad").attr("readonly");
+            //$('#cantidad').attr("readonly", "readonly");
+        }
+        //alert(cantidad);
+    });
+
+    $("#cantidad").keyup(function() {
+        
+        var producto = document.getElementById('id_product').value;
+        var cantidad = document.getElementById('cantidad').value;
+        var datos;
 
         $.ajax({
           type: "GET",
@@ -32,29 +83,9 @@
           }
         });
        
-        $('#cantidad').attr('max', datos);
-        console.log(document.getElementById('id_product').value, datos);
-        $('#lbcantidad').text("Maximo " + datos + " productos");
-    });
+        $('#cantidad').attr('max', (datos));
 
-    $("#cantidad").keyup(function() {
-        
-        var datos;
-
-        $.ajax({
-          type: "GET",
-          url: "ventas_controller",
-          async:false,
-          success: function(data) { 
-          datos = eval(data);
-          }
-        });
-        
-        var producto = document.getElementById('id_product').value;
-        var cantidad = document.getElementById('cantidad').value;
-        $('#cantidad').attr('max', datos[producto]);
-
-        if (cantidad > 0 && cantidad <= datos[producto]) {
+        if (cantidad > 0 && cantidad <= datos) {
             console.log(document.getElementById('id_product').value, datos);
 
             $("#total").val(parseFloat($('#valor').val())*parseFloat($('#cantidad').val()));
@@ -105,23 +136,53 @@
 
   function llenar(id_product, descripcion, cantidad, valor, total, cont){
 
+    var datos;
+    //var producto = document.getElementById('id_product').value;
+    var aux_cantidad = 0;
+
+    $.ajax({
+      type: "GET",
+      url: "ventas_controller/"+id_product,
+      async:false,
+      success: function(data) { 
+      datos = eval(data);
+      }
+    });
+
+    for(var i = 1; i < 7; i++){
+        if($('#c'+i+'_producto').val() == id_product){
+            aux_cantidad += parseFloat($("#c"+i+"_cantidad").val());
+        }
+    }
+
     if(cont < 7){
-      $('#tr'+cont).show();
+      if(datos-aux_cantidad > 0 && cantidad <= datos-aux_cantidad){
+        $('#tr'+cont).show();
           document.getElementById('c'+cont+'_producto').value = id_product;
           document.getElementById('c'+cont+'_descripcion').value = descripcion;
           document.getElementById('c'+cont+'_cantidad').value = cantidad;
           document.getElementById('c'+cont+'_valor').value = valor;
           document.getElementById('c'+cont+'_total').value = total;
+      } else{
+          alert('No hay items disponibles para el producto seleccionado verifique la cantidad');
+        }   
     }else{
-
       alert('No se pueden realizar mas transacciones');
     }
+    aux_cantidad = 0;
+    for(var i = 1; i < 7; i++){
+        if($('#c'+i+'_producto').val() == id_product){
+            aux_cantidad += parseFloat($("#c"+i+"_cantidad").val());
+        }
+    }
+    $('#cantidad').attr('max', (datos-aux_cantidad));
+    console.log(document.getElementById('id_product').value, datos);
+    $('#lbcantidad').text("Maximo " + (datos-aux_cantidad) + " productos");
+    //alert(aux_cantidad);
     
-
   }
 
   function limpiar(num){
-
 
     console.log(num);
     document.getElementById('c'+num+'_producto').value = "";
