@@ -91,6 +91,8 @@ class productos_controller extends Controller
         DB::insert('INSERT INTO ps_product(id_product, idcategoria, price, wholesale_price, tamano, active, date_add, date_upd) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [$cont, $request->idcategoria, $request->price, $request->price, $request->tamano, $request->active, '', '']);
 
         DB::insert('INSERT INTO ps_product_lang(id_product, name) VALUES (?, ?)', [$cont, $request->name]);
+
+        DB::insert('INSERT INTO ps_stock(id_stock, id_product, physical_quantity, usable_quantity, price_te) VALUES (?, ?, ?, ?, ?)', ['', $cont, 0, 0, 0]);
         //$puc = new Puc($request->all());
         //$puc->save();
         Flash::success("Se ha Creado El producto " . $request->name);

@@ -66,6 +66,7 @@
 
   function llenar(id_product, descripcion, cantidad, valor, total, cont){
 
+    $('#contador').val(cont);
     if(cont < 7){
       $('#tr'+cont).show();
           document.getElementById('c'+cont+'_producto').value = id_product;
@@ -192,6 +193,7 @@
                 <th>Accion</th>
               </tr>
               <tr id="tr1" >
+                <input type="hidden" id="contador" name="contador" value="0">
                 <td><input style="border:none" type="text" name="c1_producto" id="c1_producto" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_cantidad" id="c1_cantidad" readonly="readonly"></td>
