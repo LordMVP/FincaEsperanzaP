@@ -78,16 +78,22 @@ class compras_controller extends Controller
     }
 
 
-    public function transar(Request $request)
+    public function comprar(Request $request)
     {   
 
         $cont = DB::Select("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_SCHEMA = 'porcinos' AND TABLE_NAME = 'cuentas'");
         $cont = $cont[0]->AUTO_INCREMENT;
 
-        //dd(date("Y-m-d"));
+        $datos = $request->all();
+
+        dd($datos);
         $naturaleza = "";
         $saldo = 0;
         
+        for ($i=0; $i <= 6; $i++) { 
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "1105", $datos['c1_descripcion'], $datos['c1_total'], "Credito", '']);
+        }
+
         if($request->c1_cuenta != null){
             if($request->c1_debito == 0){
                 $naturaleza = "Credito";

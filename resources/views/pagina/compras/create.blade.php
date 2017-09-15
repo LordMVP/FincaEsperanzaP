@@ -179,7 +179,7 @@
             <h3 class="box-title">Movimientos</h3>
 
           </div>
-          {!! Form::open(['route' => 'compras.transar', 'method' => 'POST', 'files' => true]) !!}
+          {!! Form::open(['route' => 'compras.comprar', 'method' => 'POST', 'files' => true]) !!}
 
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover">
@@ -192,51 +192,51 @@
                 <th>Accion</th>
               </tr>
               <tr id="tr1" >
-                <td><input style="border:none" type="text" name="c1_producto" id="c1_producto"></td>
-                <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion"></td>
-                <td><input style="border:none" type="text" name="c1_cantidad" id="c1_cantidad"></td>
-                <td><input style="border:none" type="text" name="c1_valor" id="c1_valor"></td>
-                <td><input style="border:none" type="text" name="c1_total" id="c1_total"></td>
+                <td><input style="border:none" type="text" name="c1_producto" id="c1_producto" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c1_cantidad" id="c1_cantidad" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c1_valor" id="c1_valor" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c1_total" id="c1_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('1')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr2">
-                <td><input style="border:none" type="text" name="c2_producto" id="c2_producto"></td>
-                <td><input style="border:none" type="text" name="c2_descripcion" id="c2_descripcion"></td>
-                <td><input style="border:none" type="text" name="c2_cantidad" id="c2_cantidad"></td>
-                <td><input style="border:none" type="text" name="c2_valor" id="c2_valor"></td>
-                <td><input style="border:none" type="text" name="c2_total" id="c2_total"></td>
+                <td><input style="border:none" type="text" name="c2_producto" id="c2_producto" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c2_descripcion" id="c2_descripcion" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c2_cantidad" id="c2_cantidad" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c2_valor" id="c2_valor" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c2_total" id="c2_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('2')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr3">
-                <td><input style="border:none" type="text" name="c3_producto" id="c3_producto"></td>
-                <td><input style="border:none" type="text" name="c3_descripcion" id="c3_descripcion"></td>
-                <td><input style="border:none" type="text" name="c3_cantidad" id="c3_cantidad"></td>
-                <td><input style="border:none" type="text" name="c3_valor" id="c3_valor"></td>
-                <td><input style="border:none" type="text" name="c3_total" id="c3_total"></td>
+                <td><input style="border:none" type="text" name="c3_producto" id="c3_producto" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c3_descripcion" id="c3_descripcion" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c3_cantidad" id="c3_cantidad" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c3_valor" id="c3_valor" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c3_total" id="c3_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('3')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr4">
-                <td><input style="border:none" type="text" name="c4_producto" id="c4_producto"></td>
-                <td><input style="border:none" type="text" name="c4_descripcion" id="c4_descripcion"></td>
-                <td><input style="border:none" type="text" name="c4_cantidad" id="c4_cantidad"></td>
-                <td><input style="border:none" type="text" name="c4_valor" id="c4_valor"></td>
-                <td><input style="border:none" type="text" name="c4_total" id="c4_total"></td>
+                <td><input style="border:none" type="text" name="c4_producto" id="c4_producto" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c4_descripcion" id="c4_descripcion" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c4_cantidad" id="c4_cantidad" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c4_valor" id="c4_valor" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c4_total" id="c4_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('4')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr5">
-                <td><input style="border:none" type="text" name="c5_producto" id="c5_producto"></td>
-                <td><input style="border:none" type="text" name="c5_descripcion" id="c5_descripcion"></td>
-                <td><input style="border:none" type="text" name="c5_cantidad" id="c5_cantidad"></td>
-                <td><input style="border:none" type="text" name="c5_valor" id="c5_valor"></td>
-                <td><input style="border:none" type="text" name="c5_total" id="c5_total"></td>
+                <td><input style="border:none" type="text" name="c5_producto" id="c5_producto" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c5_descripcion" id="c5_descripcion" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c5_cantidad" id="c5_cantidad" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c5_valor" id="c5_valor" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c5_total" id="c5_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('5')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
               <tr id="tr6">
-                <td><input style="border:none" type="text" name="c6_producto" id="c6_producto"></td>
-                <td><input style="border:none" type="text" name="c6_descripcion" id="c6_descripcion"></td>
-                <td><input style="border:none" type="text" name="c6_cantidad" id="c6_debito"></td>
-                <td><input style="border:none" type="text" name="c6_valor" id="c6_valor"></td>
-                <td><input style="border:none" type="text" name="c6_total" id="c6_total"></td>
+                <td><input style="border:none" type="text" name="c6_producto" id="c6_producto" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c6_descripcion" id="c6_descripcion" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c6_cantidad" id="c6_debito" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c6_valor" id="c6_valor" readonly="readonly"></td>
+                <td><input style="border:none" type="text" name="c6_total" id="c6_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('6')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
             </tbody></table>

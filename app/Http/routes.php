@@ -282,6 +282,10 @@ Route::group(['middleware' => 'auth'], function()
 		'as'	=>	'ventas.cantidad'
 	])->middleware('auth');
 
+	Route::post('vender', [
+		'uses'	=>	'ventas_controller@vender',
+		'as'	=>	'ventas.vender'
+		])->middleware('auth');
 
 	/* ----------- compras ----------- */
 
@@ -295,7 +299,7 @@ Route::group(['middleware' => 'auth'], function()
 		'as'	=>	'compras.destroy'
 		])->middleware('auth');
 
-		Route::post('transar', [
-		'uses'	=>	'compras_controller@transar',
-		'as'	=>	'compras.transar'
+		Route::post('comprar', [
+		'uses'	=>	'compras_controller@comprar',
+		'as'	=>	'compras.comprar'
 		])->middleware('auth');

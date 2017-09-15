@@ -59,6 +59,106 @@ class ventas_controller extends Controller
         return view('pagina.ventas.create')->with('puc', $array_puc)->with('productos', $arrayproductos)->with('cantidades', $arraycantidades);
     }
 
+    public function vender(Request $request)
+    {   
+
+        $cont = DB::Select("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_SCHEMA = 'porcinos' AND TABLE_NAME = 'cuentas'");
+        $cont = $cont[0]->AUTO_INCREMENT;
+
+        dd(date("Y-m-d"));
+        $naturaleza = "";
+        $saldo = 0;
+        
+        if($request->c1_cuenta != null){
+            if($request->c1_debito == 0){
+                $naturaleza = "Credito";
+                $saldo = $request->c1_credito;
+            }else if($request->c1_credito == 0){
+                $naturaleza = "Debito";
+                $saldo = $request->c1_debito;
+            }else if($request->c1_debito == 0 && $request->c1_credito == 0){
+                $request->$naturaleza = "Debito";
+                $request->$saldo = $request->c1_debito;
+            }
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c1_cuenta, $request->c1_descripcion, $saldo, $naturaleza, '']);
+        }
+        
+        if($request->c2_cuenta != null){
+            if($request->c2_debito == 0){
+                $naturaleza = "Credito";
+                $saldo = $request->c2_credito;
+            }else if($request->c2_credito == 0){
+                $naturaleza = "Debito";
+                $saldo = $request->c2_debito;
+            }else if($request->c2_debito == 0 && $request->c2_credito == 0){
+                $request->$naturaleza = "Debito";
+                $request->$saldo = $request->c2_debito;
+            }
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c2_cuenta, $request->c2_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
+        }
+
+        if($request->c3_cuenta != null){
+            if($request->c3_debito == 0){
+                $naturaleza = "Credito";
+                $saldo = $request->c3_credito;
+            }else if($request->c3_credito == 0){
+                $naturaleza = "Debito";
+                $saldo = $request->c3_debito;
+            }else if($request->c3_debito == 0 && $request->c3_credito == 0){
+                $request->$naturaleza = "Debito";
+                $request->$saldo = $request->c3_debito;
+            }
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c3_cuenta, $request->c3_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
+        }
+
+        if($request->c4_cuenta != null){
+            if($request->c4_debito == 0){
+                $naturaleza = "Credito";
+                $saldo = $request->c4_credito;
+            }else if($request->c4_credito == 0){
+                $naturaleza = "Debito";
+                $saldo = $request->c4_debito;
+            }else if($request->c4_debito == 0 && $request->c4_credito == 0){
+                $request->$naturaleza = "Debito";
+                $request->$saldo = $request->c4_debito;
+            }
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c4_cuenta, $request->c4_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
+        }
+
+        if($request->c5_cuenta != null){
+            if($request->c5_debito == 0){
+                $naturaleza = "Credito";
+                $saldo = $request->c5_credito;
+            }else if($request->c5_credito == 0){
+                $naturaleza = "Debito";
+                $saldo = $request->c5_debito;
+            }else if($request->c5_debito == 0 && $request->c5_credito == 0){
+                $request->$naturaleza = "Debito";
+                $request->$saldo = $request->c5_debito;
+            }
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c5_cuenta, $request->c5_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
+        }
+
+        if($request->c6_cuenta != null){
+            if($request->c6_debito == 0){
+                $naturaleza = "Credito";
+                $saldo = $request->c6_credito;
+            }else if($request->c6_credito == 0){
+                $naturaleza = "Debito";
+                $saldo = $request->c6_debito;
+            }else if($request->c6_debito == 0 && $request->c6_credito == 0){
+                $request->$naturaleza = "Debito";
+                $request->$saldo = $request->c6_debito;
+            }
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c6_cuenta, $request->c6_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
+        }
+        //dd($request);
+
+        Flash::success("Se ha Realizado La transaccion correctamente ");
+        return redirect()->route('transaccion.index');
+    }
+
+
     public function ventascantidad($id)
     {   
         $datos = array();
