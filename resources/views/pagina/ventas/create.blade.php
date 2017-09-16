@@ -21,6 +21,7 @@
 
     $("#id_product").change(function() {
         var datos;
+        var valor;
         var producto = document.getElementById('id_product').value;
         var cantidad = 0;
         $.ajax({
@@ -32,11 +33,24 @@
           }
         });
 
+        $.ajax({
+          type: "GET",
+          url: "valor/"+producto,
+          async:false,
+          success: function(data) { 
+          valor = eval(data);
+          }
+        });
+
         for(var i = 1; i < 7; i++){
             if($('#c'+i+'_producto').val() == $('#id_product').val()){
                 cantidad += parseFloat($("#c"+i+"_cantidad").val());
             }
         }
+
+        var campo = document.getElementById('valor');
+            campo.value = valor;
+            campo.readOnly = true; 
 
         $('#cantidad').attr('max', (datos-cantidad));
         console.log(document.getElementById('id_product').value, datos);
@@ -140,7 +154,7 @@
             aux_cantidad += parseFloat($("#c"+i+"_cantidad").val());
         }
     }
-
+    $('#contador').val(cont);
     if(cont < 7){
       if(datos-aux_cantidad > 0 && cantidad <= datos-aux_cantidad){
         $('#tr'+cont).show();
@@ -284,6 +298,7 @@
                 <th>Accion</th>
               </tr>
               <tr id="tr1" >
+                <input type="hidden" id="contador" name="contador" value="0">
                 <td><input style="border:none" type="text" name="c1_producto" id="c1_producto" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_cantidad" id="c1_cantidad" readonly="readonly"></td>
@@ -339,10 +354,7 @@
       </div>
       <div class="box-body">
 
-
-
-
-        <button type="submit" class="btn btn-info">Continuar</button>
+        <button type="submit" class="btn btn-info" onclick="return confirm('¿Seguro Desea Vender estos productos?')">Continuar</button>
 
       </div>
       {!! Form::close() !!}

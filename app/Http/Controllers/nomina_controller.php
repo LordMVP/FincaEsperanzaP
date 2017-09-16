@@ -89,33 +89,6 @@ class nomina_controller extends Controller
         $nomina->save();
         Flash::success("Se ha Creado La Nomina del empleado " . $empleado->nombre . ' ' . $empleado->apellido);
         return redirect()->route('nomina.index');
-        //dd($nomina);
-        /*cedula
-        sueldo
-        sueldobasico
-        horash
-        transporte
-        comisiones
-        bonificaciones
-        devengado
-        salud
-        pension
-        riesgos
-        rtefuente
-        libranza
-        fondos
-        embargos
-        caja
-        icbf
-        sena
-        cesantias
-        intecesantias
-        primaservi
-        vacaciones
-        deducido
-        total
-        fecha
-        estado*/
     }
 
     /**
@@ -164,11 +137,7 @@ class nomina_controller extends Controller
 
         $usuario = User::find($nomina->cedula);
 
-        //`id`, `num_cuenta`, `naturaleza`, `saldo`, `descripcion`, `fecha`        
-
-        //$cuentas_nomina = new cuentas_nomina();
-        
-
+        //dd($nomina);
         if($request->estado == 'No Pago'){
             $nomina->estado = $request->estado;
             $nomina->save();
@@ -462,9 +431,11 @@ class nomina_controller extends Controller
                 $cuentas_nomina->descripcion = "Parafiscales";
                 $cuentas_nomina->fecha = $nomina->fecha;
                 $cuentas_nomina->save();
-
             }
-             DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c1_cuenta, $request->c1_descripcion, $saldo, $naturaleza, '']);
+
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', ['', '236505', 'Pago Sueldo del trabajador con cedula ' .$nomina->cedula, $nomina->devengado, 'Debito', date("Y-m-d")]);
+
+            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', ['', '112005', 'Pago Sueldo del trabajador con cedula ' .$nomina->cedula, $nomina->devengado, 'Credito', date("Y-m-d")]);
              
             $nomina->estado = "Pago";
             $nomina->save();

@@ -282,6 +282,11 @@ Route::group(['middleware' => 'auth'], function()
 		'as'	=>	'ventas.cantidad'
 	])->middleware('auth');
 
+	Route::get('valor/{id}', [
+		'uses'	=>	'ventas_controller@ventasvalor',
+		'as'	=>	'ventas.valor'
+	])->middleware('auth');
+
 	Route::post('vender', [
 		'uses'	=>	'ventas_controller@vender',
 		'as'	=>	'ventas.vender'

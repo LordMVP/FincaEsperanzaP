@@ -38,10 +38,12 @@ class productos_controller extends Controller
                 FROM 
                 porcinos.ps_product prod,
                 porcinos.ps_product_lang prla,
-                porcinos.categorias cate
+                porcinos.categorias cate,
+                porcinos.ps_stock stock
                 WHERE
                 prod.id_product = prla.id_product
                 and prod.idcategoria = cate.idcategoria
+                and stock.id_product = prod.id_product
                 and prod.active = 1
                 ");
 

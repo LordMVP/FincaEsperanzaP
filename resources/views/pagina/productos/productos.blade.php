@@ -36,7 +36,7 @@
                                     Categoria
                                 </th>
                                 <th>
-                                    Precio
+                                    Cantidad
                                 </th>
                                 <th>
                                     Precio en stock
@@ -56,10 +56,10 @@
                                     {{ $productos[$i]->nombre }}
                                 </td>
                                 <td>
-                                    {{ $productos[$i]->price }}
+                                    {{ $productos[$i]->physical_quantity }}
                                 </td>
                                 <td>
-                                    {{ $productos[$i]->wholesale_price }}
+                                    {{ $productos[$i]->price_te }}
                                 </td>
                                 <td>
                                     <a class="glyphicon glyphicon-pencil btn btn-info" href=" {{ route('productos.edit', $productos[$i]->id_product) }} ">

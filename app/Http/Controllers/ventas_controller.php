@@ -8,6 +8,7 @@ use FincaEsperanza\Http\Requests;
 use FincaEsperanza\Http\Controllers\Controller;
 use FincaEsperanza\User;
 use FincaEsperanza\Puc;
+use FincaEsperanza\ps_stock;
 use FincaEsperanza\Transaccion;
 use Laracasts\Flash\Flash;
 use Storage;
@@ -61,101 +62,66 @@ class ventas_controller extends Controller
 
     public function vender(Request $request)
     {   
-
         $cont = DB::Select("SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_SCHEMA = 'porcinos' AND TABLE_NAME = 'cuentas'");
         $cont = $cont[0]->AUTO_INCREMENT;
 
-        dd(date("Y-m-d"));
+        $datos = $request->all();
+        $stock = 0;
         $naturaleza = "";
         $saldo = 0;
-        
-        if($request->c1_cuenta != null){
-            if($request->c1_debito == 0){
-                $naturaleza = "Credito";
-                $saldo = $request->c1_credito;
-            }else if($request->c1_credito == 0){
-                $naturaleza = "Debito";
-                $saldo = $request->c1_debito;
-            }else if($request->c1_debito == 0 && $request->c1_credito == 0){
-                $request->$naturaleza = "Debito";
-                $request->$saldo = $request->c1_debito;
-            }
-            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c1_cuenta, $request->c1_descripcion, $saldo, $naturaleza, '']);
-        }
-        
-        if($request->c2_cuenta != null){
-            if($request->c2_debito == 0){
-                $naturaleza = "Credito";
-                $saldo = $request->c2_credito;
-            }else if($request->c2_credito == 0){
-                $naturaleza = "Debito";
-                $saldo = $request->c2_debito;
-            }else if($request->c2_debito == 0 && $request->c2_credito == 0){
-                $request->$naturaleza = "Debito";
-                $request->$saldo = $request->c2_debito;
-            }
-            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c2_cuenta, $request->c2_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
-        }
 
-        if($request->c3_cuenta != null){
-            if($request->c3_debito == 0){
-                $naturaleza = "Credito";
-                $saldo = $request->c3_credito;
-            }else if($request->c3_credito == 0){
-                $naturaleza = "Debito";
-                $saldo = $request->c3_debito;
-            }else if($request->c3_debito == 0 && $request->c3_credito == 0){
-                $request->$naturaleza = "Debito";
-                $request->$saldo = $request->c3_debito;
-            }
-            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c3_cuenta, $request->c3_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
-        }
+        //dd(Auth::User()->id, $datos);
+        //Credito
+        try{
+            for ($i=1; $i <= $datos['contador']; $i++) {
+                if(!is_null($datos['c'.$i.'_producto'])){
+                    $producto['id_stock'] = 0;
+                    $producto['price_te'] = 0;
+                    $producto['physical_quantity'] = 0;
+                    $productos = ps_stock::orderBy('id_stock', 'ASC')->where('id_product', '=', $datos['c'.$i.'_producto'])->get();
 
-        if($request->c4_cuenta != null){
-            if($request->c4_debito == 0){
-                $naturaleza = "Credito";
-                $saldo = $request->c4_credito;
-            }else if($request->c4_credito == 0){
-                $naturaleza = "Debito";
-                $saldo = $request->c4_debito;
-            }else if($request->c4_debito == 0 && $request->c4_credito == 0){
-                $request->$naturaleza = "Debito";
-                $request->$saldo = $request->c4_debito;
-            }
-            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c4_cuenta, $request->c4_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
-        }
+                    foreach ($productos as $pro) {
+                        //$producto = $pro;
+                        $producto['id_stock'] = $pro->id_stock;
+                        $producto['price_te'] = $pro->price_te;
+                        $producto['physical_quantity'] = $pro->physical_quantity;
+                    }
+                    //dd($producto, $datos);
+                    DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "1105", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Debito", date("Y-m-d H:i:s")]); 
 
-        if($request->c5_cuenta != null){
-            if($request->c5_debito == 0){
-                $naturaleza = "Credito";
-                $saldo = $request->c5_credito;
-            }else if($request->c5_credito == 0){
-                $naturaleza = "Debito";
-                $saldo = $request->c5_debito;
-            }else if($request->c5_debito == 0 && $request->c5_credito == 0){
-                $request->$naturaleza = "Debito";
-                $request->$saldo = $request->c5_debito;
-            }
-            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c5_cuenta, $request->c5_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
-        }
+                    DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "131505", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Credito", date("Y-m-d H:i:s")]);
+                    
+                    //dd($producto[0]->id_stock);
+                    $tcantidad = floatval($producto['physical_quantity']) - floatval($datos['c'.$i.'_cantidad']);
+                    $precioAnt = floatval($producto['price_te']);
+                    $precioNue = floatval($datos['c'.$i.'_valor']);
+                    $ttotal = (floatval($producto['price_te']) * floatval($producto['physical_quantity'])) - floatval($datos['c'.$i.'_total']);
+                    $precio = 0;
 
-        if($request->c6_cuenta != null){
-            if($request->c6_debito == 0){
-                $naturaleza = "Credito";
-                $saldo = $request->c6_credito;
-            }else if($request->c6_credito == 0){
-                $naturaleza = "Debito";
-                $saldo = $request->c6_debito;
-            }else if($request->c6_debito == 0 && $request->c6_credito == 0){
-                $request->$naturaleza = "Debito";
-                $request->$saldo = $request->c6_debito;
-            }
-            DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, $request->c6_cuenta, $request->c6_descripcion, $saldo, $naturaleza, date("Y-m-d")]);
-        }
-        //dd($request);
+                    $precioAnt = round($precioAnt, 3);
+                    
+                    /*if($precioAnt == 0){
+                        $precio = $precioNue;
+                    }else{
+                        $precio = ($ttotal / $tcantidad);
+                    }*/
 
-        Flash::success("Se ha Realizado La transaccion correctamente ");
-        return redirect()->route('transaccion.index');
+                    $precio = floatval($producto['price_te']) * floatval($producto['physical_quantity']);
+
+                    //dd($ttotal, $tcantidad, $precio, $precioAnt, $precioNue);
+                    DB::update("UPDATE ps_stock SET physical_quantity=".$tcantidad.", usable_quantity=".$tcantidad.", price_te=".$precio." WHERE id_stock = '".$producto['id_stock']."'");
+              
+                    DB::insert('INSERT into ps_stock_mvt (id_stock_mvt, id_stock, id_user, physical_quantity, date_add, sign, price_te, last_wa, current_wa, referer) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ['', $producto['id_stock'], Auth::User()->id, $datos['c'.$i.'_cantidad'], date("Y-m-d H:i:s"), '-1', $precioAnt, $precioAnt, $precioAnt, '0']);
+                     
+                }
+            }
+            //dd("pp");
+        }catch(Exception $e){
+            Flash::error("Error en el proceso");
+            return redirect()->route('compras.index');     
+        }
+        Flash::success("Se ha Realizado La Venta correctamente ");
+        return redirect()->route('ventas.index');
     }
 
 
@@ -178,6 +144,32 @@ class ventas_controller extends Controller
 
         for ($i=0; $i < count($productos); $i++) { 
             $arraycantidades[$productos[$i]->id_product] = $productos[$i]->cantidad;   
+        }
+        //array_push($datos, $arraycantidades);
+        //$aux .= "}";
+        //return json_encode($arreglo);
+        return $arraycantidades[$id];
+    }
+
+    public function ventasvalor($id)
+    {   
+        $datos = array();
+        $arraycantidades = array();
+        $productos = DB::Select("SELECT 
+            prod.id_product, cate.nombre as 'categoria',  prla.name as 'nombre', prla.description as 'descripcion', prod.price as 'precio', stoc.price_te as 'precio_stock', stoc.physical_quantity as 'cantidad'
+            FROM 
+            porcinos.ps_product_lang prla,
+            porcinos.ps_product prod,
+            porcinos.ps_stock stoc,
+            porcinos.categorias cate
+            where   
+            prla.id_product = prod.id_product
+            and prod.id_product = stoc.id_product
+            and prod.idcategoria = cate.idcategoria
+            and prod.id_product = " . $id);
+
+        for ($i=0; $i < count($productos); $i++) { 
+            $arraycantidades[$productos[$i]->id_product] = $productos[$i]->precio_stock;   
         }
         //array_push($datos, $arraycantidades);
         //$aux .= "}";

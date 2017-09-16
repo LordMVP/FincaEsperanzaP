@@ -252,7 +252,7 @@
 
 
 
-        <button type="submit" class="btn btn-info">Continuar</button>
+        <button type="submit" class="btn btn-info" onclick="return confirm('¿Seguro Desea Comprar estos productos?')">Continuar</button>
 
       </div>
       {!! Form::close() !!}

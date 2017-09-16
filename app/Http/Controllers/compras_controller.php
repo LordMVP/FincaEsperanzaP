@@ -97,31 +97,39 @@ class compras_controller extends Controller
                 if(!is_null($datos['c'.$i.'_producto'])){
                     $producto['id_stock'] = 0;
                     $producto['price_te'] = 0;
+                    $producto['physical_quantity'] = 0;
                     $productos = ps_stock::orderBy('id_stock', 'ASC')->where('id_product', '=', $datos['c'.$i.'_producto'])->get();
 
                     foreach ($productos as $pro) {
                         //$producto = $pro;
                         $producto['id_stock'] = $pro->id_stock;
                         $producto['price_te'] = $pro->price_te;
+                        $producto['physical_quantity'] = $pro->physical_quantity;
                     }
                     //dd($producto, $datos);
                     DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "1105", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Credito", date("Y-m-d H:i:s")]);
+
                     DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "62", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Debito", date("Y-m-d H:i:s")]);
                     
                     //dd($producto[0]->id_stock);
-                    $precioAnt = $producto['price_te'];
-                    $precioNue = $datos['c'.$i.'_valor'];
+                    $tcantidad = floatval($producto['physical_quantity']) + floatval($datos['c'.$i.'_cantidad']);
+                    $precioAnt = floatval($producto['price_te']);
+                    $precioNue = floatval($datos['c'.$i.'_valor']);
+                    $ttotal = floatval($datos['c'.$i.'_total']) + (floatval($producto['price_te']) * floatval($producto['physical_quantity']));
                     $precio = 0;
+
+                    $precioAnt = round($precioAnt, 3);
+                    
                     if($precioAnt == 0){
-                        $precioAnt = $precioNue;
+                        $precio = $precioNue;
                     }else{
-                        $precio = (($precioAnt + $precioNue) / 2); 
+                        $precio = ($ttotal / $tcantidad);
                     }
-                    //echo $datos['c'.$i.'_producto'] . ' - ' .  $producto[0]->id_stock . ' - ' .  $precioAnt . ' - ' .  $precioNue . ' - ' .  $precio;
 
-                    DB::update("UPDATE ps_stock SET price_te=".$precio." WHERE id_stock = '".$producto['id_stock']."'");
-
-                    DB::insert('insert into ps_stock_mvt (id_stock_mvt, id_stock, id_user, physical_quantity, date_add, sign, price_te, last_wa, current_wa, referer) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ['', $producto['id_stock'], Auth::User()->id, $datos['c'.$i.'_cantidad'], date("Y-m-d H:i:s"), '1', $precioNue, $precioAnt, $precio, '0']);
+                    //dd($ttotal, $tcantidad, $precio, $precioAnt, $precioNue);
+                    DB::update("UPDATE ps_stock SET physical_quantity=".$tcantidad.", usable_quantity=".$tcantidad.", price_te=".$precio." WHERE id_stock = '".$producto['id_stock']."'");
+              
+                    DB::insert('INSERT into ps_stock_mvt (id_stock_mvt, id_stock, id_user, physical_quantity, date_add, sign, price_te, last_wa, current_wa, referer) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ['', $producto['id_stock'], Auth::User()->id, $datos['c'.$i.'_cantidad'], date("Y-m-d H:i:s"), '1', $precioNue, $precioAnt, $precio, '0']);
                      
                 }
             }
