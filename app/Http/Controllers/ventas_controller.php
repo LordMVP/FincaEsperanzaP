@@ -87,9 +87,9 @@ class ventas_controller extends Controller
                         $producto['physical_quantity'] = $pro->physical_quantity;
                     }
                     //dd($producto, $datos);
-                    DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "1105", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Debito", date("Y-m-d H:i:s")]); 
+                    //DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "1105", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Debito", date("Y-m-d H:i:s")]); 
 
-                    DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "131505", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Credito", date("Y-m-d H:i:s")]);
+                    //DB::insert('insert into cuentas (num_compro, num_cuenta, descripcion, saldo, naturaleza, fecha_operacion) values (?, ?, ?, ?, ?, ?)', [$cont, "131505", $datos['c'.$i.'_descripcion'], $datos['c'.$i.'_total'], "Credito", date("Y-m-d H:i:s")]);
                     
                     //dd($producto[0]->id_stock);
                     $tcantidad = floatval($producto['physical_quantity']) - floatval($datos['c'.$i.'_cantidad']);
@@ -98,7 +98,7 @@ class ventas_controller extends Controller
                     $ttotal = (floatval($producto['price_te']) * floatval($producto['physical_quantity'])) - floatval($datos['c'.$i.'_total']);
                     $precio = 0;
 
-                    $precioAnt = round($precioAnt, 3);
+                    //$precioAnt = round($precioAnt, 3);
                     
                     /*if($precioAnt == 0){
                         $precio = $precioNue;
@@ -106,10 +106,12 @@ class ventas_controller extends Controller
                         $precio = ($ttotal / $tcantidad);
                     }*/
 
+
                     $precio = floatval($producto['price_te']) * floatval($producto['physical_quantity']);
+                    $precio = round($precio, 1);
 
                     //dd($ttotal, $tcantidad, $precio, $precioAnt, $precioNue);
-                    DB::update("UPDATE ps_stock SET physical_quantity=".$tcantidad.", usable_quantity=".$tcantidad.", price_te=".$precio." WHERE id_stock = '".$producto['id_stock']."'");
+                    DB::update("UPDATE ps_stock SET physical_quantity=".$tcantidad.", usable_quantity=".$tcantidad.", price_te=".$precioNue." WHERE id_stock = '".$producto['id_stock']."'");
               
                     DB::insert('INSERT into ps_stock_mvt (id_stock_mvt, id_stock, id_user, physical_quantity, date_add, sign, price_te, last_wa, current_wa, referer) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', ['', $producto['id_stock'], Auth::User()->id, $datos['c'.$i.'_cantidad'], date("Y-m-d H:i:s"), '-1', $precioAnt, $precioAnt, $precioAnt, '0']);
                      

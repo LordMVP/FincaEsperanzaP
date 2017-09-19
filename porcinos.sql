@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.2.11
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-09-2017 a las 09:12:23
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 20-09-2017 a las 00:11:21
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de datos: `porcinos`
@@ -26,12 +26,12 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE `categorias` (
-  `idcategoria` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `categorias` (
+`idcategoria` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   `estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -48,7 +48,7 @@ INSERT INTO `categorias` (`idcategoria`, `nombre`, `descripcion`, `estado`) VALU
 -- Estructura de tabla para la tabla `clientes`
 --
 
-CREATE TABLE `clientes` (
+CREATE TABLE IF NOT EXISTS `clientes` (
   `cedula` longtext NOT NULL,
   `nombre` longtext NOT NULL,
   `apellido` longtext NOT NULL,
@@ -70,14 +70,14 @@ INSERT INTO `clientes` (`cedula`, `nombre`, `apellido`, `telefono`) VALUES
 -- Estructura de tabla para la tabla `cuentas`
 --
 
-CREATE TABLE `cuentas` (
-  `num_compro` int(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cuentas` (
+`num_compro` int(50) NOT NULL,
   `num_cuenta` int(50) NOT NULL,
   `descripcion` varchar(200) NOT NULL,
   `saldo` int(11) NOT NULL,
   `naturaleza` enum('Debito','Credito') NOT NULL,
   `fecha_operacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `cuentas`
@@ -89,7 +89,45 @@ INSERT INTO `cuentas` (`num_compro`, `num_cuenta`, `descripcion`, `saldo`, `natu
 (48, 112005, '12345678', 979140, 'Credito', '2017-09-16 05:00:00'),
 (47, 236505, '12345678', 979140, 'Debito', '2017-09-16 05:00:00'),
 (46, 62, 'Compras Marranos Mes de Septiembre', 13500000, 'Debito', '2017-09-16 06:31:50'),
-(46, 1105, 'Compras Marranos Mes de Septiembre', 13500000, 'Credito', '2017-09-16 06:31:50');
+(46, 1105, 'Compras Marranos Mes de Septiembre', 13500000, 'Credito', '2017-09-16 06:31:50'),
+(51, 236505, 'Pago Sueldo del trabajador con cedula 1069747147', 1734192, 'Debito', '2017-09-19 05:00:00'),
+(52, 112005, 'Pago Sueldo del trabajador con cedula 1069747147', 1734192, 'Credito', '2017-09-19 05:00:00'),
+(53, 1105, 'Marranos ', 1520000, 'Credito', '2017-09-19 19:08:32'),
+(53, 62, 'Marranos ', 1520000, 'Debito', '2017-09-19 19:08:32'),
+(54, 1105, 'venta de marranos', 12948276, 'Debito', '2017-09-19 19:09:13'),
+(54, 131505, 'venta de marranos', 12948276, 'Credito', '2017-09-19 19:09:13'),
+(55, 1105, 'Compra marranos', 2750000, 'Credito', '2017-09-19 19:12:31'),
+(55, 62, 'Compra marranos', 2750000, 'Debito', '2017-09-19 19:12:31'),
+(55, 1105, 'Productos de aseo', 120000, 'Credito', '2017-09-19 19:12:31'),
+(55, 62, 'Productos de aseo', 120000, 'Debito', '2017-09-19 19:12:31'),
+(56, 1105, 'Marranos faltantes', 650000, 'Credito', '2017-09-19 19:13:30'),
+(56, 62, 'Marranos faltantes', 650000, 'Debito', '2017-09-19 19:13:30'),
+(57, 1105, 'Venta marranos', 1700000, 'Debito', '2017-09-19 19:14:37'),
+(57, 131505, 'Venta marranos', 1700000, 'Credito', '2017-09-19 19:14:37'),
+(58, 1105, 'cacac', 75000, 'Credito', '2017-09-19 19:27:01'),
+(58, 62, 'cacac', 75000, 'Debito', '2017-09-19 19:27:01'),
+(59, 1105, 'asdasd', 54000, 'Credito', '2017-09-19 19:29:51'),
+(59, 62, 'asdasd', 54000, 'Debito', '2017-09-19 19:29:51'),
+(60, 1105, 'asdasd', 28000, 'Credito', '2017-09-19 19:30:31'),
+(60, 62, 'asdasd', 28000, 'Debito', '2017-09-19 19:30:31'),
+(61, 1105, 'asdasd', 12560, 'Debito', '2017-09-19 19:35:27'),
+(61, 131505, 'asdasd', 12560, 'Credito', '2017-09-19 19:35:27'),
+(62, 1105, '', 0, 'Debito', '2017-09-19 19:36:21'),
+(62, 131505, '', 0, 'Credito', '2017-09-19 19:36:21'),
+(62, 1105, '23 ventas', 3611000, 'Debito', '2017-09-19 19:36:21'),
+(62, 131505, '23 ventas', 3611000, 'Credito', '2017-09-19 19:36:21'),
+(63, 1105, 'Marranos compras', 1750000, 'Credito', '2017-09-19 21:44:28'),
+(63, 62, 'Marranos compras', 1750000, 'Debito', '2017-09-19 21:44:28'),
+(64, 1105, 'ventas 50% del producto', 875000, 'Debito', '2017-09-19 21:45:14'),
+(64, 131505, 'ventas 50% del producto', 875000, 'Credito', '2017-09-19 21:45:14'),
+(65, 1105, 'otro 50%', 43750000, 'Debito', '2017-09-19 21:45:43'),
+(65, 131505, 'otro 50%', 43750000, 'Credito', '2017-09-19 21:45:43'),
+(66, 1105, 'jajajaj', 125000, 'Credito', '2017-09-19 21:58:56'),
+(66, 62, 'jajajaj', 125000, 'Debito', '2017-09-19 21:58:56'),
+(67, 1105, 'oeoeoeo', 175000, 'Credito', '2017-09-19 22:00:20'),
+(67, 62, 'oeoeoeo', 175000, 'Debito', '2017-09-19 22:00:20'),
+(68, 1105, 'ventas', 90000, 'Debito', '2017-09-19 22:01:53'),
+(68, 131505, 'ventas', 90000, 'Credito', '2017-09-19 22:01:53');
 
 -- --------------------------------------------------------
 
@@ -97,7 +135,7 @@ INSERT INTO `cuentas` (`num_compro`, `num_cuenta`, `descripcion`, `saldo`, `natu
 -- Estructura de tabla para la tabla `cuentas_nomina`
 --
 
-CREATE TABLE `cuentas_nomina` (
+CREATE TABLE IF NOT EXISTS `cuentas_nomina` (
   `id` int(11) NOT NULL,
   `num_cuenta` varchar(20) DEFAULT NULL,
   `naturaleza` varchar(20) DEFAULT NULL,
@@ -253,7 +291,30 @@ INSERT INTO `cuentas_nomina` (`id`, `num_cuenta`, `naturaleza`, `saldo`, `descri
 (0, '510575', 'Debito', 52500, 'ICBF', '0000-00-00'),
 (0, '510578', 'Debito', 35000, 'Sena', '0000-00-00'),
 (0, '510572', 'Debito', 70000, 'Caja de compensacion', '0000-00-00'),
-(0, '237010', 'Credito', 157500, 'Parafiscales', '0000-00-00');
+(0, '237010', 'Credito', 157500, 'Parafiscales', '0000-00-00'),
+(0, '510506', 'Debito', 1519000, 'Sueldos', '2017-09-19'),
+(0, '510515', 'Debito', 215191.6666666667, 'Horas Extra', '2017-09-19'),
+(0, '237005', 'Credito', 69367.66666666667, 'Salud', '2017-09-19'),
+(0, '238030', 'Credito', 69367.66666666667, 'Pension', '2017-09-19'),
+(0, '1110', 'Credito', 1241687.5625, 'Nomina Empleados', '2017-09-19'),
+(0, '510569', 'Debito', 69367.66666666667, 'Aportes salud', '2017-09-19'),
+(0, '237005', 'Credito', 69367.66666666667, 'Aportes salud', '2017-09-19'),
+(0, '510570', 'Debito', 69367.66666666667, 'Aportes pensiones', '2017-09-19'),
+(0, '238030', 'Credito', 69367.66666666667, 'Aportes pensiones', '2017-09-19'),
+(0, '510568', 'Debito', 69367.66666666667, 'ARL', '2017-09-19'),
+(0, '237006', 'Credito', 69367.66666666667, 'ARL', '2017-09-19'),
+(0, '510539', 'Debito', 63291.666666666664, 'Vacaciones', '2017-09-19'),
+(0, '261015', 'Credito', 63291.666666666664, 'Vacaciones', '2017-09-19'),
+(0, '510536', 'Debito', 144515.97222222222, 'Primas', '2017-09-19'),
+(0, '253005', 'Credito', 144515.97222222222, 'Primas', '2017-09-19'),
+(0, '510530', 'Debito', 144515.97222222222, 'Cesantias', '2017-09-19'),
+(0, '261005', 'Credito', 144515.97222222222, 'Cesantias', '2017-09-19'),
+(0, '510533', 'Debito', 1445.1597222222222, 'Int. Cesantias', '2017-09-19'),
+(0, '261010', 'Credito', 1445.1597222222222, 'Int. Cesantias', '2017-09-19'),
+(0, '510575', 'Debito', 0, 'ICBF', '2017-09-19'),
+(0, '510578', 'Debito', 0, 'Sena', '2017-09-19'),
+(0, '510572', 'Debito', 0, 'Caja de compensacion', '2017-09-19'),
+(0, '237010', 'Credito', 0, 'Parafiscales', '2017-09-19');
 
 -- --------------------------------------------------------
 
@@ -261,7 +322,7 @@ INSERT INTO `cuentas_nomina` (`id`, `num_cuenta`, `naturaleza`, `saldo`, `descri
 -- Estructura de tabla para la tabla `inventario`
 --
 
-CREATE TABLE `inventario` (
+CREATE TABLE IF NOT EXISTS `inventario` (
   `num_compro` longtext NOT NULL,
   `descripcion` longtext NOT NULL,
   `saldo` int(11) NOT NULL,
@@ -286,7 +347,7 @@ INSERT INTO `inventario` (`num_compro`, `descripcion`, `saldo`, `cantidad`, `fec
 -- Estructura de tabla para la tabla `listarn`
 --
 
-CREATE TABLE `listarn` (
+CREATE TABLE IF NOT EXISTS `listarn` (
   `basico` varchar(20) DEFAULT NULL,
   `horas` varchar(20) DEFAULT NULL,
   `transporte` varchar(20) DEFAULT NULL,
@@ -319,7 +380,7 @@ INSERT INTO `listarn` (`basico`, `horas`, `transporte`, `comision`, `bonificacio
 -- Estructura de tabla para la tabla `migrations`
 --
 
-CREATE TABLE `migrations` (
+CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -338,14 +399,14 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- Estructura de tabla para la tabla `modelo`
 --
 
-CREATE TABLE `modelo` (
-  `id_modelo` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `modelo` (
+`id_modelo` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   `nvariables` int(11) DEFAULT NULL,
   `nrestricciones` int(11) DEFAULT NULL,
   `accion` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `modelo`
@@ -362,12 +423,12 @@ INSERT INTO `modelo` (`id_modelo`, `nombre`, `descripcion`, `nvariables`, `nrest
 -- Estructura de tabla para la tabla `modelo_resultado`
 --
 
-CREATE TABLE `modelo_resultado` (
-  `id_mode_resultado` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `modelo_resultado` (
+`id_mode_resultado` int(11) NOT NULL,
   `id_modelo` int(11) NOT NULL,
   `variable` varchar(45) DEFAULT NULL,
   `valor` double DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `modelo_resultado`
@@ -521,14 +582,14 @@ INSERT INTO `modelo_resultado` (`id_mode_resultado`, `id_modelo`, `variable`, `v
 -- Estructura de tabla para la tabla `modelo_stock`
 --
 
-CREATE TABLE `modelo_stock` (
-  `id_stock_modelo` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `modelo_stock` (
+`id_stock_modelo` int(11) NOT NULL,
   `id_modelo` int(11) NOT NULL,
   `columna` int(11) DEFAULT NULL,
   `fila` int(11) DEFAULT NULL,
   `valor` double DEFAULT '0',
   `accion` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1469 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `modelo_stock`
@@ -1546,12 +1607,12 @@ INSERT INTO `modelo_stock` (`id_stock_modelo`, `id_modelo`, `columna`, `fila`, `
 -- Estructura de tabla para la tabla `modelo_variables`
 --
 
-CREATE TABLE `modelo_variables` (
-  `id_mode_resultado` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `modelo_variables` (
+`id_mode_resultado` int(11) NOT NULL,
   `id_modelo` int(11) NOT NULL,
   `variable` varchar(45) DEFAULT NULL,
   `valor` double DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `modelo_variables`
@@ -1603,7 +1664,7 @@ INSERT INTO `modelo_variables` (`id_mode_resultado`, `id_modelo`, `variable`, `v
 -- Estructura de tabla para la tabla `nomina`
 --
 
-CREATE TABLE `nomina` (
+CREATE TABLE IF NOT EXISTS `nomina` (
   `codigo` int(11) NOT NULL,
   `nombre` longtext,
   `sueldo` double DEFAULT NULL,
@@ -1638,8 +1699,8 @@ INSERT INTO `nomina` (`codigo`, `nombre`, `sueldo`, `sueldobasico`, `horash`, `t
 -- Estructura de tabla para la tabla `nomina1`
 --
 
-CREATE TABLE `nomina1` (
-  `id_nomina` int(200) NOT NULL,
+CREATE TABLE IF NOT EXISTS `nomina1` (
+`id_nomina` int(200) NOT NULL,
   `cedula` varchar(20) NOT NULL,
   `diastrabajados` varchar(30) NOT NULL,
   `sueldo` varchar(20) DEFAULT NULL,
@@ -1667,7 +1728,7 @@ CREATE TABLE `nomina1` (
   `total` varchar(20) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `estado` varchar(45) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `nomina1`
@@ -1676,7 +1737,8 @@ CREATE TABLE `nomina1` (
 INSERT INTO `nomina1` (`id_nomina`, `cedula`, `diastrabajados`, `sueldo`, `sueldobasico`, `horash`, `transporte`, `comisiones`, `bonificaciones`, `devengado`, `salud`, `pension`, `riesgos`, `rtefuente`, `libranza`, `fondos`, `embargos`, `caja`, `icbf`, `sena`, `cesantias`, `intecesantias`, `primaservi`, `vacaciones`, `deducido`, `total`, `fecha`, `estado`) VALUES
 (6, '1069747147', '30', '1519000', '1519000', '0', '0', '0', '0', '1519000', '60760', '60760', '60760', '0', '0', '0', '0', '25316.666666666668', '18987.5', '12658.333333333334', '126583.33333333333', '1265.8333333333333', '126583.33333333333', '63291.666666666664', '439244.1666666667', '1079755.8333333333', '2017-09-12', 'Cancelado'),
 (7, '12345678', '30', '896000', '896000', '0', '83140', '0', '0', '979140', '35840', '35840', '35840', '0', '0', '0', '0', '0', '0', '0', '81595', '815.95', '81595', '37333.333333333336', '273019.2833333333', '706120.7166666667', '2017-09-16', 'Pago'),
-(8, '1069747753', '30', '4200000', '4200000', '0', '0', '0', '0', '4200000', '168000', '168000', '168000', '0', '0', '0', '0', '70000', '52500', '35000', '350000', '3500', '350000', '175000', '1214500', '2985500', '0000-00-00', 'Pago');
+(8, '1069747753', '30', '4200000', '4200000', '0', '0', '0', '0', '4200000', '168000', '168000', '168000', '0', '0', '0', '0', '70000', '52500', '35000', '350000', '3500', '350000', '175000', '1214500', '2985500', '0000-00-00', 'Pago'),
+(9, '1069747147', '30', '1519000', '1519000', '215191.6666666667', '0', '0', '0', '1734191.6666666667', '69367.66666666667', '69367.66666666667', '69367.66666666667', '0', '0', '0', '0', '0', '0', '0', '144515.97222222222', '1445.1597222222222', '144515.97222222222', '63291.666666666664', '492504.1041666667', '1241687.5625', '2017-09-19', 'Pago');
 
 -- --------------------------------------------------------
 
@@ -1684,7 +1746,7 @@ INSERT INTO `nomina1` (`id_nomina`, `cedula`, `diastrabajados`, `sueldo`, `sueld
 -- Estructura de tabla para la tabla `password_resets`
 --
 
-CREATE TABLE `password_resets` (
+CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
@@ -1696,26 +1758,26 @@ CREATE TABLE `password_resets` (
 -- Estructura de tabla para la tabla `ps_product`
 --
 
-CREATE TABLE `ps_product` (
-  `id_product` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `ps_product` (
+`id_product` int(10) unsigned NOT NULL,
   `idcategoria` int(10) NOT NULL,
   `ean13` varchar(13) DEFAULT NULL,
   `quantity` int(10) NOT NULL DEFAULT '0',
-  `minimal_quantity` int(10) UNSIGNED NOT NULL DEFAULT '1',
+  `minimal_quantity` int(10) unsigned NOT NULL DEFAULT '1',
   `price` decimal(20,6) NOT NULL DEFAULT '0.000000',
   `wholesale_price` decimal(20,6) NOT NULL DEFAULT '0.000000',
   `tamano` decimal(20,6) NOT NULL DEFAULT '0.000000',
-  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_upd` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ps_product`
 --
 
 INSERT INTO `ps_product` (`id_product`, `idcategoria`, `ean13`, `quantity`, `minimal_quantity`, `price`, `wholesale_price`, `tamano`, `active`, `date_add`, `date_upd`) VALUES
-(6, 2, '', 0, 1, '12000.000000', '8000.000000', '0.000000', 1, '2016-10-26 02:09:39', '2016-11-15 00:02:46'),
+(6, 2, '', 0, 1, '0.000000', '8000.000000', '0.000000', 1, '2016-10-26 02:09:39', '0000-00-00 00:00:00'),
 (18, 3, NULL, 0, 1, '0.000000', '0.000000', '25.000000', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
@@ -1724,18 +1786,18 @@ INSERT INTO `ps_product` (`id_product`, `idcategoria`, `ean13`, `quantity`, `min
 -- Estructura de tabla para la tabla `ps_product_lang`
 --
 
-CREATE TABLE `ps_product_lang` (
-  `id_product` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `ps_product_lang` (
+`id_product` int(10) unsigned NOT NULL,
   `description` text,
   `name` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ps_product_lang`
 --
 
 INSERT INTO `ps_product_lang` (`id_product`, `description`, `name`) VALUES
-(6, '', 'Axilar para muleta almohadilla'),
+(6, '', 'Productos de lavado'),
 (18, NULL, 'Marranos');
 
 -- --------------------------------------------------------
@@ -1744,22 +1806,22 @@ INSERT INTO `ps_product_lang` (`id_product`, `description`, `name`) VALUES
 -- Estructura de tabla para la tabla `ps_stock`
 --
 
-CREATE TABLE `ps_stock` (
-  `id_stock` int(11) UNSIGNED NOT NULL,
-  `id_product` int(11) UNSIGNED NOT NULL,
-  `physical_quantity` int(11) UNSIGNED NOT NULL,
-  `usable_quantity` int(11) UNSIGNED NOT NULL,
-  `price_te` decimal(20,6) DEFAULT '0.000000',
+CREATE TABLE IF NOT EXISTS `ps_stock` (
+`id_stock` int(11) unsigned NOT NULL,
+  `id_product` int(11) unsigned NOT NULL,
+  `physical_quantity` int(11) unsigned NOT NULL,
+  `usable_quantity` int(11) unsigned NOT NULL,
+  `price_te` double NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ps_stock`
 --
 
 INSERT INTO `ps_stock` (`id_stock`, `id_product`, `physical_quantity`, `usable_quantity`, `price_te`, `updated_at`) VALUES
-(25, 6, 4, 4, '6284.375000', '2017-09-15 17:06:37'),
-(27, 18, 100, 100, '135000.000000', '2017-09-16 06:31:50');
+(25, 6, 10, 10, 12000, '2017-09-19 19:12:31'),
+(27, 18, 0, 0, 3000, '2017-09-19 22:08:05');
 
 -- --------------------------------------------------------
 
@@ -1767,25 +1829,30 @@ INSERT INTO `ps_stock` (`id_stock`, `id_product`, `physical_quantity`, `usable_q
 -- Estructura de tabla para la tabla `ps_stock_mvt`
 --
 
-CREATE TABLE `ps_stock_mvt` (
-  `id_stock_mvt` bigint(20) UNSIGNED NOT NULL,
-  `id_stock` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `ps_stock_mvt` (
+`id_stock_mvt` bigint(20) unsigned NOT NULL,
+  `id_stock` int(11) unsigned NOT NULL,
   `id_user` int(11) NOT NULL,
-  `physical_quantity` int(11) UNSIGNED NOT NULL,
+  `physical_quantity` int(11) unsigned NOT NULL,
   `date_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sign` tinyint(1) NOT NULL DEFAULT '1',
-  `price_te` decimal(20,6) DEFAULT '0.000000',
-  `last_wa` decimal(20,6) DEFAULT '0.000000',
-  `current_wa` decimal(20,6) DEFAULT '0.000000',
-  `referer` bigint(20) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `price_te` decimal(8,1) NOT NULL,
+  `last_wa` decimal(8,1) NOT NULL,
+  `current_wa` decimal(8,1) NOT NULL,
+  `referer` bigint(20) unsigned DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ps_stock_mvt`
 --
 
 INSERT INTO `ps_stock_mvt` (`id_stock_mvt`, `id_stock`, `id_user`, `physical_quantity`, `date_add`, `sign`, `price_te`, `last_wa`, `current_wa`, `referer`) VALUES
-(143, 27, 1069747147, 100, '2017-09-16 01:31:50', 1, '135000.000000', '0.000000', '135000.000000', 0);
+(147, 25, 1069747147, 10, '2017-09-19 14:12:32', 1, '12000.0', '0.0', '12000.0', 0),
+(159, 27, 1069747147, 50, '2017-09-19 16:58:56', 1, '2500.0', '0.0', '2500.0', 0),
+(160, 27, 1069747147, 50, '2017-09-19 17:00:20', 1, '3500.0', '2500.0', '3000.0', 0),
+(161, 27, 1069747147, 30, '2017-09-19 17:01:53', -1, '3000.0', '3000.0', '3000.0', 0),
+(162, 27, 1069747147, 25, '2017-09-19 17:07:41', -1, '3000.0', '3000.0', '3000.0', 0),
+(163, 27, 1069747147, 45, '2017-09-19 17:08:05', -1, '3000.0', '3000.0', '3000.0', 0);
 
 -- --------------------------------------------------------
 
@@ -1793,7 +1860,7 @@ INSERT INTO `ps_stock_mvt` (`id_stock_mvt`, `id_stock`, `id_user`, `physical_qua
 -- Estructura de tabla para la tabla `puc`
 --
 
-CREATE TABLE `puc` (
+CREATE TABLE IF NOT EXISTS `puc` (
   `nro_cuenta` varchar(20) NOT NULL,
   `nombre_cuenta` varchar(200) NOT NULL,
   `clase` varchar(100) NOT NULL,
@@ -2427,7 +2494,7 @@ INSERT INTO `puc` (`nro_cuenta`, `nombre_cuenta`, `clase`, `estado`) VALUES
 ('171064', 'ELEMENTOS DE ROPERIA Y LENCERIA', 'ACTIVO', 0),
 ('171068', 'LOZA Y CRISTALERIA', 'ACTIVO', 0),
 ('171072', 'DESCUENTO EN COLOCACION DE BONOS', 'ACTIVO', 0),
-('171076', 'IMPUESTO DE RENTA DIFERIDO \"DEBITOS\" POR DIFERENCIAS', 'ACTIVO', 0),
+('171076', 'IMPUESTO DE RENTA DIFERIDO "DEBITOS" POR DIFERENCIAS', 'ACTIVO', 0),
 ('171080', 'CONCURSOS Y LICITACIONES', 'ACTIVO', 0),
 ('171095', 'OTROS', 'ACTIVO', 0),
 ('171099', 'AJUSTES POR INFLACION', 'ACTIVO', 0),
@@ -4285,8 +4352,8 @@ INSERT INTO `puc` (`nro_cuenta`, `nombre_cuenta`, `clase`, `estado`) VALUES
 -- Estructura de tabla para la tabla `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+`id` int(10) unsigned NOT NULL,
   `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `telefono` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -4299,7 +4366,7 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1069747754 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -4317,12 +4384,12 @@ INSERT INTO `users` (`id`, `nombre`, `apellido`, `telefono`, `genero`, `email`, 
 -- Estructura de tabla para la tabla `variables`
 --
 
-CREATE TABLE `variables` (
-  `idvariables` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `variables` (
+`idvariables` int(11) NOT NULL,
   `variable` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `variables`
@@ -4353,117 +4420,109 @@ INSERT INTO `variables` (`idvariables`, `variable`, `nombre`, `descripcion`) VAL
 -- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`idcategoria`);
+ ADD PRIMARY KEY (`idcategoria`);
 
 --
 -- Indices de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  ADD PRIMARY KEY (`num_compro`,`num_cuenta`,`descripcion`,`fecha_operacion`);
+ ADD PRIMARY KEY (`num_compro`,`num_cuenta`,`descripcion`,`fecha_operacion`);
 
 --
 -- Indices de la tabla `cuentas_nomina`
 --
 ALTER TABLE `cuentas_nomina`
-  ADD KEY `id` (`id`);
+ ADD KEY `id` (`id`);
 
 --
 -- Indices de la tabla `listarn`
 --
 ALTER TABLE `listarn`
-  ADD KEY `nro_code` (`nro_code`);
+ ADD KEY `nro_code` (`nro_code`);
 
 --
 -- Indices de la tabla `modelo`
 --
 ALTER TABLE `modelo`
-  ADD PRIMARY KEY (`id_modelo`);
+ ADD PRIMARY KEY (`id_modelo`);
 
 --
 -- Indices de la tabla `modelo_resultado`
 --
 ALTER TABLE `modelo_resultado`
-  ADD PRIMARY KEY (`id_mode_resultado`,`id_modelo`),
-  ADD KEY `fl_modelo_resultado_idx` (`id_modelo`);
+ ADD PRIMARY KEY (`id_mode_resultado`,`id_modelo`), ADD KEY `fl_modelo_resultado_idx` (`id_modelo`);
 
 --
 -- Indices de la tabla `modelo_stock`
 --
 ALTER TABLE `modelo_stock`
-  ADD PRIMARY KEY (`id_stock_modelo`,`id_modelo`),
-  ADD KEY `fk_stock_modelo_idx` (`id_modelo`);
+ ADD PRIMARY KEY (`id_stock_modelo`,`id_modelo`), ADD KEY `fk_stock_modelo_idx` (`id_modelo`);
 
 --
 -- Indices de la tabla `modelo_variables`
 --
 ALTER TABLE `modelo_variables`
-  ADD PRIMARY KEY (`id_mode_resultado`,`id_modelo`),
-  ADD KEY `fl_modelo_resultado_idx` (`id_modelo`);
+ ADD PRIMARY KEY (`id_mode_resultado`,`id_modelo`), ADD KEY `fl_modelo_resultado_idx` (`id_modelo`);
 
 --
 -- Indices de la tabla `nomina`
 --
 ALTER TABLE `nomina`
-  ADD PRIMARY KEY (`codigo`);
+ ADD PRIMARY KEY (`codigo`);
 
 --
 -- Indices de la tabla `nomina1`
 --
 ALTER TABLE `nomina1`
-  ADD PRIMARY KEY (`id_nomina`,`cedula`);
+ ADD PRIMARY KEY (`id_nomina`,`cedula`);
 
 --
 -- Indices de la tabla `password_resets`
 --
 ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`),
-  ADD KEY `password_resets_token_index` (`token`);
+ ADD KEY `password_resets_email_index` (`email`), ADD KEY `password_resets_token_index` (`token`);
 
 --
 -- Indices de la tabla `ps_product`
 --
 ALTER TABLE `ps_product`
-  ADD PRIMARY KEY (`id_product`),
-  ADD KEY `index2` (`idcategoria`);
+ ADD PRIMARY KEY (`id_product`), ADD KEY `index2` (`idcategoria`);
 
 --
 -- Indices de la tabla `ps_product_lang`
 --
 ALTER TABLE `ps_product_lang`
-  ADD PRIMARY KEY (`id_product`);
+ ADD PRIMARY KEY (`id_product`);
 
 --
 -- Indices de la tabla `ps_stock`
 --
 ALTER TABLE `ps_stock`
-  ADD PRIMARY KEY (`id_stock`,`id_product`);
+ ADD PRIMARY KEY (`id_stock`,`id_product`);
 
 --
 -- Indices de la tabla `ps_stock_mvt`
 --
 ALTER TABLE `ps_stock_mvt`
-  ADD PRIMARY KEY (`id_stock_mvt`,`id_stock`),
-  ADD KEY `id_user` (`id_user`);
+ ADD PRIMARY KEY (`id_stock_mvt`,`id_stock`), ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `puc`
 --
 ALTER TABLE `puc`
-  ADD PRIMARY KEY (`nro_cuenta`);
+ ADD PRIMARY KEY (`nro_cuenta`);
 
 --
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- Indices de la tabla `variables`
 --
 ALTER TABLE `variables`
-  ADD PRIMARY KEY (`idvariables`),
-  ADD UNIQUE KEY `variable_UNIQUE` (`variable`);
+ ADD PRIMARY KEY (`idvariables`), ADD UNIQUE KEY `variable_UNIQUE` (`variable`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -4473,67 +4532,67 @@ ALTER TABLE `variables`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `num_compro` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+MODIFY `num_compro` int(50) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT de la tabla `modelo`
 --
 ALTER TABLE `modelo`
-  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `modelo_resultado`
 --
 ALTER TABLE `modelo_resultado`
-  MODIFY `id_mode_resultado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
+MODIFY `id_mode_resultado` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=312;
 --
 -- AUTO_INCREMENT de la tabla `modelo_stock`
 --
 ALTER TABLE `modelo_stock`
-  MODIFY `id_stock_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1469;
+MODIFY `id_stock_modelo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1469;
 --
 -- AUTO_INCREMENT de la tabla `modelo_variables`
 --
 ALTER TABLE `modelo_variables`
-  MODIFY `id_mode_resultado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+MODIFY `id_mode_resultado` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=110;
 --
 -- AUTO_INCREMENT de la tabla `nomina1`
 --
 ALTER TABLE `nomina1`
-  MODIFY `id_nomina` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+MODIFY `id_nomina` int(200) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `ps_product`
 --
 ALTER TABLE `ps_product`
-  MODIFY `id_product` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+MODIFY `id_product` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `ps_product_lang`
 --
 ALTER TABLE `ps_product_lang`
-  MODIFY `id_product` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+MODIFY `id_product` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `ps_stock`
 --
 ALTER TABLE `ps_stock`
-  MODIFY `id_stock` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+MODIFY `id_stock` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT de la tabla `ps_stock_mvt`
 --
 ALTER TABLE `ps_stock_mvt`
-  MODIFY `id_stock_mvt` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+MODIFY `id_stock_mvt` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=164;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1069747754;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1069747754;
 --
 -- AUTO_INCREMENT de la tabla `variables`
 --
 ALTER TABLE `variables`
-  MODIFY `idvariables` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+MODIFY `idvariables` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- Restricciones para tablas volcadas
 --
@@ -4542,19 +4601,19 @@ ALTER TABLE `variables`
 -- Filtros para la tabla `modelo_resultado`
 --
 ALTER TABLE `modelo_resultado`
-  ADD CONSTRAINT `fl_modelo_resultado` FOREIGN KEY (`id_modelo`) REFERENCES `modelo` (`id_modelo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fl_modelo_resultado` FOREIGN KEY (`id_modelo`) REFERENCES `modelo` (`id_modelo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `modelo_stock`
 --
 ALTER TABLE `modelo_stock`
-  ADD CONSTRAINT `fk_stock_modelo` FOREIGN KEY (`id_modelo`) REFERENCES `modelo` (`id_modelo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_stock_modelo` FOREIGN KEY (`id_modelo`) REFERENCES `modelo` (`id_modelo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `ps_product`
 --
 ALTER TABLE `ps_product`
-  ADD CONSTRAINT `fk_pro_cate` FOREIGN KEY (`idcategoria`) REFERENCES `categorias` (`idcategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_pro_cate` FOREIGN KEY (`idcategoria`) REFERENCES `categorias` (`idcategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

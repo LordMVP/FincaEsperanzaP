@@ -83,9 +83,14 @@
                 $inventarios[$i]->total = str_replace('.', '',rtrim($inventarios[$i]->total, '0'));
 
                 if($i == 0){
+                  /*$inventarios[$i]->tcantidad = round($inventarios[$i]->cantidad, 2);
+                  $inventarios[$i]->tprecio = round($inventarios[$i]->precio, 2);
+                  $inventarios[$i]->ttotal  = round($inventarios[$i]->total, 2);
+                  */
                   $inventarios[$i]->tcantidad = $inventarios[$i]->cantidad;
                   $inventarios[$i]->tprecio = $inventarios[$i]->precio;
                   $inventarios[$i]->ttotal  = $inventarios[$i]->total;
+
                 }else{
 
                   if ($inventarios[$i]->detalle == "1"){
@@ -98,6 +103,9 @@
                     $inventarios[$i]->ttotal = $inventarios[$i-1]->ttotal - $inventarios[$i]->total;
                     $inventarios[$i]->tprecio = $inventarios[$i]->total / $inventarios[$i]->cantidad;
                   }
+                  //$inventarios[$i]->tcantidad = round($inventarios[$i]->tcantidad, 2);
+                  //$inventarios[$i]->ttotal = round($inventarios[$i]->ttotal, 2);
+                  //$inventarios[$i]->tprecio = round($inventarios[$i]->tprecio, 2);
                 }
 
                 ?>
