@@ -100,8 +100,10 @@
                   }else if ($inventarios[$i]->detalle == "-1"){
                     //$inventarios[$i]->precio
                     $inventarios[$i]->tcantidad = $inventarios[$i-1]->tcantidad - $inventarios[$i]->cantidad;
-                    $inventarios[$i]->ttotal = $inventarios[$i-1]->ttotal - $inventarios[$i]->total;
+                
+                    //$inventarios[$i]->ttotal = $inventarios[$i]->total + $inventarios[$i-1]->ttotal;
                     $inventarios[$i]->tprecio = $inventarios[$i]->total / $inventarios[$i]->cantidad;
+                    $inventarios[$i]->ttotal = $inventarios[$i]->tprecio * $inventarios[$i]->tcantidad;
                   }
                   //$inventarios[$i]->tcantidad = round($inventarios[$i]->tcantidad, 2);
                   //$inventarios[$i]->ttotal = round($inventarios[$i]->ttotal, 2);

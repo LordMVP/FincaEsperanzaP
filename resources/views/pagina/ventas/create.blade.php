@@ -50,7 +50,11 @@
 
         var campo = document.getElementById('valor');
             campo.value = valor;
-            campo.readOnly = true; 
+            //campo.readOnly = true; 
+
+        var campo2 = document.getElementById('valor2');
+            campo2.value = valor;
+            campo2.readOnly = true; 
 
         $('#cantidad').attr('max', (datos-cantidad));
         console.log(document.getElementById('id_product').value, datos);
@@ -59,11 +63,11 @@
         if((datos-cantidad) == 0){
             //$("#cantidad").attr("readonly");
             var campo = document.getElementById('cantidad');
-            campo.readOnly = true; 
+            //campo.readOnly = true; 
             //$('#cantidad').attr("readonly", "readonly");
         }else{
             var campo = document.getElementById('cantidad');
-            campo.readOnly = false;
+            //campo.readOnly = false;
         }
         //alert(cantidad);
     });
@@ -108,6 +112,7 @@
     var descripcion = document.getElementById('descripcion').value;
     var cantidad = document.getElementById('cantidad').value;
     var valor = document.getElementById('valor').value;
+    var valor2 = document.getElementById('valor2').value;
     var total = document.getElementById('total').value;
     //alert(nro_cuenta);
     console.log(total);
@@ -124,7 +129,7 @@
 
       if(cont < 7){
         cont++;
-        llenar(id_product, descripcion, cantidad, valor, total, cont);
+        llenar(id_product, descripcion, cantidad, valor, valor2, total, cont);
       }else{
         alert('No se pueden realizar mas transacciones');
       }
@@ -134,7 +139,7 @@
     console.log(cont);
   }
 
-  function llenar(id_product, descripcion, cantidad, valor, total, cont){
+  function llenar(id_product, descripcion, cantidad, valor, valor2, total, cont){
 
     var datos;
     //var producto = document.getElementById('id_product').value;
@@ -162,6 +167,7 @@
           document.getElementById('c'+cont+'_descripcion').value = descripcion;
           document.getElementById('c'+cont+'_cantidad').value = cantidad;
           document.getElementById('c'+cont+'_valor').value = valor;
+          document.getElementById('c'+cont+'_valor2').value = valor2;
           document.getElementById('c'+cont+'_total').value = total;
       } else{
           alert('No hay items disponibles para el producto seleccionado verifique la cantidad');
@@ -191,6 +197,7 @@
     document.getElementById('c'+num+'_descripcion').value = "";
     document.getElementById('c'+num+'_cantidad').value = "";
     document.getElementById('c'+num+'_valor').value = "";
+    document.getElementById('c'+num+'_valor2').value = "";
     document.getElementById('c'+num+'_total').value = "";
 
     if(cont == num || cont == 1){
@@ -203,11 +210,12 @@
       var descripcion = document.getElementById('c'+num+'_descripcion').value;
       var cantidad = document.getElementById('c'+num+'_cantidad').value;
       var valor = document.getElementById('c'+num+'_valor').value;
+      var valor2 = document.getElementById('c'+num+'_valor2').value;
       var total = document.getElementById('c'+num+'_total').value;
 
       num--;
       cont = num;
-      llenar(id_product, descripcion, cantidad, valor, total, num);
+      llenar(id_product, descripcion, cantidad, valor, valor2, total, num);
     }
     $('#tr'+num).hide();
   }
@@ -251,6 +259,10 @@
 
         {!! Form::label('Valor Unitario', 'Valor Unitario') !!}
         {!! Form::number('valor', 0, ['id' => 'valor', 'class' => 'form-control', 'placeholder' => 'Valor', 'title' => 'Valor unitario', 'value' => '0']) !!}
+        
+        {!! Form::label('Valor Unitario', 'Valor Unitario Recomendado', ['style' => 'color:red;']) !!}
+        {!! Form::number('valor2', 0, ['id' => 'valor2', 'class' => 'form-control', 'placeholder' => 'Valor', 'title' => 'Valor unitario Recomendado', 'value' => '0', 'style' => 'border-color:red;']) !!}
+
 
         {!! Form::label('Total', 'Total') !!}
         {!! Form::number('total', 0, ['id' => 'total', 'class' => 'form-control', 'placeholder' => 'Total', 'title' => 'Valor total productos', 'readonly' => '']) !!}
@@ -303,6 +315,7 @@
                 <td><input style="border:none" type="text" name="c1_descripcion" id="c1_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_cantidad" id="c1_cantidad" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_valor" id="c1_valor" readonly="readonly"></td>
+                <td><input style="border:none; display: none;" type="text" name="c1_valor2" id="c1_valor2" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c1_total" id="c1_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('1')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
@@ -311,6 +324,7 @@
                 <td><input style="border:none" type="text" name="c2_descripcion" id="c2_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c2_cantidad" id="c2_cantidad" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c2_valor" id="c2_valor" readonly="readonly"></td>
+                <td><input style="border:none; display: none;" type="text" name="c2_valor2" id="c2_valor2" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c2_total" id="c2_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('2')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
@@ -319,6 +333,7 @@
                 <td><input style="border:none" type="text" name="c3_descripcion" id="c3_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c3_cantidad" id="c3_cantidad" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c3_valor" id="c3_valor" readonly="readonly"></td>
+                <td><input style="border:none; display: none;" type="text" name="c3_valor2" id="c3_valor2" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c3_total" id="c3_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('3')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
@@ -327,6 +342,7 @@
                 <td><input style="border:none" type="text" name="c4_descripcion" id="c4_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c4_cantidad" id="c4_cantidad" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c4_valor" id="c4_valor" readonly="readonly"></td>
+                <td><input style="border:none; display: none;" type="text" name="c4_valor2" id="c4_valor2" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c4_total" id="c4_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('4')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
@@ -335,6 +351,7 @@
                 <td><input style="border:none" type="text" name="c5_descripcion" id="c5_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c5_cantidad" id="c5_cantidad" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c5_valor" id="c5_valor" readonly="readonly"></td>
+                <td><input style="border:none; display: none;" type="text" name="c5_valor2" id="c5_valor2" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c5_total" id="c5_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('5')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
@@ -343,6 +360,7 @@
                 <td><input style="border:none" type="text" name="c6_descripcion" id="c6_descripcion" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c6_cantidad" id="c6_debito" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c6_valor" id="c6_valor" readonly="readonly"></td>
+                <td><input style="border:none; display: none;" type="text" name="c6_valor2" id="c6_valor2" readonly="readonly"></td>
                 <td><input style="border:none" type="text" name="c6_total" id="c6_total" readonly="readonly"></td>
                 <td><a onclick="limpiar('6')" title="limpiar" class="glyphicon glyphicon-trash btn btn-danger"></a></td>
               </tr>
